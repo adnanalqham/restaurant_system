@@ -1,190 +1,235 @@
-# Hotel Saba Restaurant Management System
+<div align="center">
+  <img src="docs/assets/saba-logo.png" alt="Hotel Saba Restaurant Management System" width="180">
+</div>
 
-A comprehensive, production-grade Restaurant Management and Point of Sale (POS) system engineered for Hotel Saba to streamline multi-station dining operations, real-time order lifecycle tracking, role-based staff workflows, multi-department thermal printing, inventory management, and financial analytics.
+<h1 align="center">Hotel Saba Restaurant Management System</h1>
 
 <p align="center">
-  <img src="docs/assets/saba-logo.png" alt="Hotel Saba" width="180">
+  A professional restaurant management and POS system for hotel food and beverage operations.
 </p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/PHP-8.x-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.x">
+  <img src="https://img.shields.io/badge/Database-MySQL%20%7C%20MariaDB-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
+  <img src="https://img.shields.io/badge/Frontend-Vanilla%20JS%20%7C%20CSS3-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/RealTime-Server--Sent%20Events%20(SSE)-FF6C37?style=flat-square" alt="SSE">
+  <img src="https://img.shields.io/badge/Printing-ESC%2FPOS%20%7C%20TCP%20%7C%20Spooler-2C3E50?style=flat-square" alt="ESC/POS Printing">
+  <img src="https://img.shields.io/badge/Status-Production%20Ready-2ECC71?style=flat-square" alt="Production Ready">
+</p>
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+  - [POS & Cashier](#pos--cashier)
+  - [Waiter Operations](#waiter-operations)
+  - [Kitchen & Stations](#kitchen--stations)
+  - [Inventory](#inventory)
+  - [Orders & Tables](#orders--tables)
+  - [Printing](#printing)
+  - [Reporting](#reporting)
+  - [Administration](#administration)
+- [System Architecture](#system-architecture)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Roles & Permissions](#roles--permissions)
+- [Database](#database)
+- [API](#api)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Development](#development)
+- [Screenshots / Demo](#screenshots--demo)
+- [Documentation](#documentation)
+- [Security](#security)
+- [Roadmap](#roadmap)
+- [License](#license)
+- [Credits / Footer](#credits--footer)
 
 ---
 
 ## Overview
 
-The **Hotel Saba Restaurant Management System** is a dedicated enterprise hospitality solution tailored to the operational requirements of Hotel Saba. It integrates front-of-house table service, kitchen preparation stations, cashier checkout desks, inventory warehousing, and administrative reporting into a unified, responsive platform.
+The **Hotel Saba Restaurant Management System** is a purpose-built, on-premise and cloud-ready hospitality platform engineered specifically for Hotel Saba's restaurant, kitchen, beverage, and dining facilities.
 
-Powered by a lightweight PHP backend, MySQL/MariaDB relational database, and native JavaScript with Server-Sent Events (SSE), the system guarantees instant bi-directional updates between dining areas, kitchen stations, cashiers, and administration without the latency or overhead of complex external runtimes.
+The system addresses critical operational bottlenecks in fast-paced dining environments:
+- **Eliminating Lost Tickets**: Real-time dispatching between floor servers and food preparation stations.
+- **Multi-Department Routing**: Splitting items automatically to specialized thermal printers (hot kitchen, cold appetizers, beverage bar).
+- **Consolidating Billing**: Handling cash, credit cards, room charges for hotel guests, and customer digital wallets in a unified cashier drawer.
+- **Preventing Leakage**: Shift-based locking mechanisms, role-based restrictions, and detailed audit trails for sensitive operations.
+- **Streamlining Inventory**: Tracking ingredient consumption and handling internal stock requisition workflows.
 
 ---
 
-## Features
+## Key Features
 
-### POS (Point of Sale)
-- **Fast-Paced Cashier Interface**: Optimized for high throughput with table-based and walk-in order management.
-- **Payment Processing**: Multi-channel payment settlement supporting Cash, Card, Room Charge (Hotel Guests), and Customer Digital Wallets.
-- **Discounts & Surcharges**: Configurable discount rules, tax rates, and service charges.
-- **Refunds & Adjustments**: Safe partial or full refund tracking with original and adjusted receipt calculations.
-- **Shift & Settlement Management**: Automated shift cutoff locks, daily cashier drawer reconciliation, and end-of-shift summaries.
+### POS & Cashier
+- **High-Speed Checkout Terminal**: Built for rapid order lookup, table selection, and direct walk-in billing.
+- **Flexible Settlement Channels**: Supports **Cash**, **Credit Card**, **Hotel Room Charge** (integrated with room view), and **Customer Digital Wallets**.
+- **Discounts & Surcharges**: Configurable line-item discounts, promotional coupons (`offers`), tax rates, and optional service charges.
+- **Refunds & Adjustments**: Safe partial or full refund tracking with transparent balance calculation and reprint indicators.
+- **Cashier Drawer & Shift Management**: Daily shift cutoff enforcement with end-of-shift reconciliation and daily settlement reporting.
 
-### Orders
-- **Full Order Lifecycle**: Seamless progression across `pending` &rarr; `sent_to_cashier` &rarr; `in_progress` &rarr; `ready` &rarr; `delivered` / `paid` / `cancelled`.
-- **Append Items to Active Orders**: Real-time addition of extra items to open orders with distinct tracking for previously printed vs. new items.
-- **Item-Level Preparation Status**: Kitchen and beverage stations can accept, start, or reject specific order lines with automated price readjustment.
-- **Preparation Time Tracking**: Benchmarks order prep duration per item to identify kitchen bottlenecks.
+### Waiter Operations
+- **Floor-Optimized Mobile View**: Touch-friendly interface tailored for handheld tablets and smartphones.
+- **Table Status Monitoring**: Visual breakdown of dining tables, active covers, and occupied stations.
+- **Add Items to Active Orders**: Real-time addition of extra items to already open orders with distinct visual badges for new vs. previously submitted items.
+- **Live Ticket Status**: Instant status tracking informing servers when dishes are in preparation or ready for pickup.
+- **Mobile Printing**: Wireless thermal receipt printing directly from the server's mobile device via Bluetooth bridge.
 
-### Restaurant Operations
-- **Floor & Table Management**: Interactive table assignment and dining room status views.
-- **Ticket Sales Module**: Dedicated ticketing engine for special hotel events and buffet passes (`ticket_types` & `ticket_sales`).
-- **Real-Time Synchronization (SSE)**: Built-in Server-Sent Events engine pushing immediate visual and audible notifications across all stations.
-- **Closed Shift Security**: Enforces shift cutoff times with audit-logged administrative override permissions.
+### Kitchen & Stations
+- **Station-Specific Dispatch Screens**: Dedicated monitors for Kitchen Chefs (`chef`), Juice & Beverage Bars (`juice_bar`), and Waiter Stations.
+- **Category Permissions**: Each station user can be restricted to view only their assigned item categories (`user_category_permissions`).
+- **Granular Line-Item Status**: Stations can mark items as `in_progress`, `ready`, or `rejected` with instant feedback to waitstaff and cashier.
+- **Preparation Time Tracking**: Real-time benchmarking of ticket creation to completion time per dish.
+- **Audible & Visual Alerts**: Sound notifications and pulsing badges triggered instantly upon new incoming orders.
 
-### Staff & Permissions
-- **Granular Access Control**: Role-based base privileges combined with fine-grained custom permission flags (`permissions` JSON).
-- **Category-Restricted Station Views**: Custom station assignment defining exactly which food/beverage categories each kitchen user can access (`user_category_permissions`).
-- **Activity Audit Trail**: Comprehensive logging of sensitive administrative operations (order deletions, shift bypasses, payment changes) with advanced multi-criteria filtering.
+### Inventory
+- **Ingredient & Raw Material Catalog**: Tracking raw goods (`inv_items`), measuring units, and minimum safety stock thresholds.
+- **Purchase Order Tracking**: Recording supplier stock replenishment, cost values, purchase dates, and receiving staff.
+- **Multi-Tier Requisition Workflow**: Station requests (`inv_requests`) routed through coordinators and warehouse managers for approval and issuance.
+- **Stock Log Auditing**: Change history logging (`item_audit_log` and `item_stock_log`) for inventory accountability.
 
-### Inventory & Warehousing
-- **Ingredient & Raw Material Catalog**: Tracking stock units, minimum thresholds, and unit costs.
-- **Purchase Orders & Receptions**: Logging ingredient purchases and replenishments with supplier and coordinator notes.
-- **Internal Requisition Workflow**: Multi-tier request pipeline (`inv_requests`) connecting dining stations, coordinators, and warehouse managers.
-- **Recipe & Stock Linkage**: Tracking menu items to ingredient deductions and consumption logs.
+### Orders & Tables
+- **Comprehensive Lifecycle**: Progression across `pending` &rarr; `sent_to_cashier` &rarr; `in_progress` &rarr; `ready` &rarr; `delivered` / `paid` / `cancelled`.
+- **Closed Shift Security**: Automatically prevents modifications or reprints on orders created during closed shifts unless unlocked by an authorized manager.
+- **Special Event Ticket Sales**: Integrated ticketing module (`ticket_types` & `ticket_sales`) for hotel buffet passes and special dinner events.
 
-### Multi-Department Thermal Printing
-- **Intelligent Department Routing**: Automatic dispatch of items based on Category &rarr; Department &rarr; Designated Printer (e.g., Grills &rarr; Hot Kitchen, Drinks &rarr; Juice Bar).
-- **Dual Hardware Support**:
-  - **Network TCP/IP Printers**: Raw ESC/POS byte streaming via TCP sockets (`port 9100`).
+### Printing
+- **Intelligent Department Routing**: Automatic dispatch of items based on Category &rarr; Department &rarr; Designated Printer.
+- **Dual Hardware Spooling**:
+  - **Network Thermal Printers**: Raw ESC/POS byte streaming via TCP sockets (`port 9100`).
   - **Local USB / Windows Printers**: Direct Windows Print Spooler P/Invoke via background service.
-- **Mobile Bluetooth Bridge (`js/native-bridge.js`)**: Mobile/tablet waiter integration supporting Android WebView / Flutter channels (`AndroidPrint`, `PrinterBridge`) and Android Intent fallback (RawBT).
-- **Asynchronous Print Queue**: Database-backed queue (`print_queue`) with atomic job claiming (`SELECT FOR UPDATE`), pre-rendered ESC/POS binary buffers, and idempotency protection (`request_id`).
+- **Asynchronous Print Queue**: Database-backed queue (`print_queue`) with atomic job claiming (`SELECT FOR UPDATE`), pre-built binary buffers, and idempotency protection (`request_id`).
 - **Local Print Worker Service**: Standalone background workers (`local_print_worker.php`, `start_print_service.bat`, `start_print_service.ps1`) for polling cloud servers and printing to local hardware.
+- **Mobile Bluetooth Bridge**: Seamless integration via `js/native-bridge.js` supporting Android WebView / Flutter channels and print intent apps (RawBT).
 
-### Reports & Business Intelligence
+### Reporting
 - **Financial Daily Summaries**: Breakdown of sales, payment methods, discounts, and net revenues.
 - **Sales Statistics & Analytics**: Top-selling items, category performance, and item prep time distributions with visual Chart.js graphs.
 - **Room Sales Audit**: Dedicated hotel room charge reconciliation for front-desk audit.
 - **Excel & Print Export**: Instant generation of structured accounting spreadsheets and thermal summaries.
 
----
-
-## User Roles
-
-| Role | System Identifier | Key Responsibilities |
-| :--- | :--- | :--- |
-| **System Administrator** | `admin` | Full system governance, menu engineering, printer routing, user permissions, audit logs, and settings. |
-| **Waiter / Server** | `waiter` | Table order creation, extra item additions, table status tracking, and floor delivery confirmation. |
-| **Cashier** | `cashier` | Order verification, invoice settlement, payment collection, receipt printing, and shift reconciliation. |
-| **Head Chef / Kitchen** | `chef` / `kitchen` | Food preparation queue, preparation time updates, item completion signaling. |
-| **Juice Bar Operator** | `juice_bar` | Cold drinks and beverage station preparation. |
-| **Financial Accountant** | `accountant` | Review of financial reports, cashier settlements, sales analytics, and ledger verification. |
-| **Warehouse Manager** | `warehouse_manager` | Managing inventory stocks, approving requisition requests, and receiving purchase shipments. |
-| **Inventory Monitor** | `inventory_monitor` | Monitoring minimum stock thresholds, inventory transactions, and consumption logs. |
-| **Request Coordinator** | `request_coordinator` | Reviewing and routing internal stock requisitions between stations and warehouse. |
-| **Hotel Receptionist** | `receptionist` | Monitoring room charge dining balances and room sales views. |
+### Administration
+- **Centralized Dashboard**: Live revenue metrics, active order counters, and operational statistics.
+- **Menu Engineering**: Category and item management with image upload, item description, and pricing controls.
+- **Printer & Hardware Setup**: IP printer discovery, Windows spooler name mapping, and department assignments.
+- **Granular Permissions**: Role management coupled with fine-grained checkbox permissions.
+- **Activity Audit Trail**: Searchable audit log with multi-criteria filtering by action, user, and date.
 
 ---
 
 ## System Architecture
 
-```mermaid
-flowchart TD
-    subgraph ClientLayer["Clients & User Interfaces"]
-        W[Waiters - Mobile / Tablet]
-        C[Cashiers - Desktop POS]
-        K[Kitchen & Stations - Screens]
-        A[Admin & Accounting - Dashboard]
-    end
-
-    subgraph AppLayer["Application Layer (PHP 8.x)"]
-        Router[Front Controller & Role Dispatcher]
-        API[RESTful API Endpoints]
-        SSE[SSE Real-Time Push Service]
-        PE[Print Engine & Department Router]
-    end
-
-    subgraph DataLayer["Persistence Layer"]
-        DB[(MySQL / MariaDB)]
-        Queue[Print Queue Table]
-        Logs[Activity & Print Logs]
-    end
-
-    subgraph PrintLayer["Printing Infrastructure"]
-        NetPrinters[Network ESC/POS Printers: Port 9100]
-        LocalWorker[Windows Local Print Worker Service]
-        USBPrinters[Thermal Printers via Windows Spooler]
-        BTBridge[Android Bluetooth SPP Bridge]
-    end
-
-    W --> Router
-    C --> Router
-    K --> Router
-    A --> Router
-
-    Router --> API
-    API --> DB
-    API --> SSE
-    SSE -.->|Push notifications| K
-    SSE -.->|Order status| W
-    SSE -.->|Payment updates| C
-
-    API --> PE
-    PE --> Queue
-    PE -->|Direct TCP| NetPrinters
-    Queue --> LocalWorker
-    LocalWorker -->|Raw Spooler| USBPrinters
-    W -.->|Native Bridge| BTBridge
-    BTBridge -->|Bluetooth| USBPrinters
+```text
+Browser / POS Interfaces (Waiters, Cashiers, Kitchen, Admin)
+        │
+        ▼
+     PHP Application
+        │
+        ├── REST / JSON APIs (api/orders.php, api/reports.php, etc.)
+        ├── SSE Notifications (api/sse.php -> sse_events table)
+        ├── Printing Engine (api/print_engine.php & ESC/POS generator)
+        └── Business Modules (admin/, cashier/, waiter/, station/)
+                │
+                ▼
+          MySQL / MariaDB (InnoDB, UTF-8 mb4, Relational Constraints)
+                │
+                ▼
+          Printing Pipeline
+                ├── Direct TCP/IP Network Printers (port 9100)
+                ├── Print Queue (`print_queue` table)
+                │       └── Windows Local Print Worker (`local_print_worker.php`)
+                │               └── Windows Print Spooler (`winspool.drv`)
+                └── Android Bluetooth Bridge (`js/native-bridge.js`)
 ```
 
 ---
 
 ## Technology Stack
 
-- **Backend**: PHP 8.x (Native PDO, structured modular routing, strict collation & session security).
-- **Database**: MySQL / MariaDB (InnoDB, `utf8mb4_unicode_ci`, relational foreign key constraints, atomic transactions).
-- **Real-Time Engine**: Server-Sent Events (SSE) via lightweight database-backed event queue (`sse_events`).
-- **Frontend**: HTML5, Vanilla JavaScript (ES6+ async/await, Fetch API, EventSource), Modern CSS3 (Custom Properties design system, CSS Grid/Flexbox).
-- **Libraries & UI**: FontAwesome 6 (Icons), Google Fonts (Cairo / Inter), Chart.js (Data visualizations).
-- **Hardware Integration**: ESC/POS binary command synthesis, Windows Print Spooler P/Invoke via PowerShell, raw TCP sockets via `fsockopen`.
-- **Web Server**: Apache with `.htaccess` rewrite rules and protected directory configurations (tested on XAMPP and Linux hosting).
+| Layer | Technology | Details |
+| :--- | :--- | :--- |
+| **Backend Language** | PHP 8.x | Native PDO, strict types, session management, JSON responses |
+| **Database** | MySQL 5.7+ / MariaDB 10.4+ | InnoDB engine, `utf8mb4_unicode_ci`, foreign key constraints |
+| **Real-Time Communication** | Server-Sent Events (SSE) | Event queue via database table `sse_events` |
+| **Frontend Core** | HTML5, Vanilla JavaScript (ES6+) | Modern async/await, Fetch API, EventSource listeners |
+| **Frontend Styling** | CSS3 Custom Properties | Responsive layout, dark/light theme tokens, Flexbox & CSS Grid |
+| **Icons & Typography** | FontAwesome 6, Google Fonts | Cairo & Inter typography |
+| **Visual Analytics** | Chart.js | Interactive preparation time charts and sales distributions |
+| **Thermal Printing** | ESC/POS Binary Protocol | TCP sockets (`fsockopen`), Windows Spooler API (`winspool.drv`), Bluetooth SPP |
+| **Web Server** | Apache (XAMPP / Linux) | Directory security and routing via `.htaccess` |
 
 ---
 
-## Directory Structure
+## Project Structure
 
 ```text
-├── admin/                  # Administrative control panel & management modules
-│   ├── _layout.php         # Admin base layout, sidebar, and dynamic navigation
-│   ├── activity_log.php    # Activity monitoring with multi-criteria search
+├── admin/                  # Administrative management panel
+│   ├── _layout.php         # Base layout, dynamic navigation, and permission gates
+│   ├── activity_log.php    # Audit log with multi-criteria filtering
+│   ├── bulk_import.php     # Batch item import utility
+│   ├── categories.php      # Category management and department mapping
 │   ├── departments.php     # Department printer assignment
-│   ├── financial_revenues.php # Financial revenue tracking
-│   ├── index.php           # Admin dashboard and analytics overview
-│   ├── inventory.php       # Raw material stock and purchase entries
+│   ├── direct_staff.php    # Direct dining staff assignment
+│   ├── financial_revenues.php # Financial revenue tracking and analytics
+│   ├── index.php           # Main admin KPI dashboard
+│   ├── ingredients.php     # Inventory raw materials catalog
+│   ├── inventory.php       # Stock intake and purchase order entry
+│   ├── inventory_report.php# Stock level and consumption reports
+│   ├── inventory_requests.php # Multi-tier internal requisition manager
+│   ├── item_audit_logs.php # Item price and status modification audit
+│   ├── item_stock.php      # Finished goods stock tracking
+│   ├── item_times.php      # Kitchen preparation duration analytics
 │   ├── items.php           # Menu item catalog and pricing
-│   ├── printers.php        # Hardware printer network & spooler setup
-│   ├── reports.php         # Sales and financial reports
-│   └── users.php           # Staff accounts and granular permissions
+│   ├── offers.php          # Promotional discounts and special combos
+│   ├── orders.php          # Comprehensive order management
+│   ├── printers.php        # Hardware printer network and spooler setup
+│   ├── reports.php         # Sales, daily settlements, and revenue reports
+│   ├── room_sales_view.php # Hotel room charge audit view
+│   ├── sales_stats.php     # Sales velocity and item popularity stats
+│   ├── settings.php        # Restaurant parameters, tax, currency, shift times
+│   ├── ticket_sales.php    # Event and buffet ticket sales manager
+│   ├── ticket_types.php    # Ticket tier configuration
+│   ├── users.php           # Staff account management and permissions
+│   ├── wallets.php         # Customer digital wallet accounts
+│   └── warehouses.php      # Storage warehouse configuration
 ├── api/                    # RESTful endpoints & real-time handlers
-│   ├── activity.php        # Audit log querying and filtering
-│   ├── auth.php            # Session validation and login API
-│   ├── orders.php          # Core order lifecycle and transaction processing
-│   ├── print_engine.php    # Department routing and ESC/POS generator
-│   ├── print_queue.php     # Queue worker claim and status endpoints
-│   ├── reports.php         # Aggregated financial analytics engine
-│   └── sse.php             # Server-Sent Events real-time broadcast stream
-├── assets/                 # Frontend assets (CSS styles, global scripts)
-│   ├── css/style.css       # Unified design system & responsive UI rules
-│   └── js/app.js           # Core client utilities, modals, and toasts
+│   ├── activity.php        # Activity log API with multi-criteria search
+│   ├── admin_actions.php   # Administrative action handlers
+│   ├── app_diagnostic.php  # Public connectivity diagnostic endpoint
+│   ├── auth.php            # Authentication and session API
+│   ├── categories.php      # Category CRUD API
+│   ├── departments.php     # Department configuration API
+│   ├── export_report.php   # Excel spreadsheet export engine
+│   ├── inventory.php       # Inventory stock and requisition API
+│   ├── items.php           # Menu item catalog API
+│   ├── orders.php          # Core transaction and order lifecycle engine
+│   ├── print_direct.php    # Direct printing HTTP handler
+│   ├── print_direct_lib.php# ESC/POS binary builder & Windows spooler library
+│   ├── print_engine.php    # Department routing and socket transmission
+│   ├── print_queue.php     # Print queue claim and status endpoints
+│   ├── printers.php        # Printer hardware CRUD API
+│   ├── reports.php         # Financial analytics API
+│   ├── sse.php             # Server-Sent Events event broadcast stream
+│   ├── tickets.php         # Ticket sales transaction API
+│   └── users.php           # User account and permissions API
+├── assets/                 # Static frontend assets
+│   ├── css/style.css       # Unified design system & responsive styling
+│   └── js/app.js           # Client application utilities, toasts, and modals
 ├── cashier/                # Dedicated Cashier POS station
 │   ├── _layout.php         # Cashier layout and navigation
 │   ├── index.php           # Cashier order monitor and checkout console
 │   └── reports.php         # Shift settlements and cashier summaries
-├── config/                 # Configuration & environment setup
+├── config/                 # Configuration and environment setup
 │   ├── db.php              # Database connector & environment loader
 │   ├── db.example.php      # Sample configuration template
 │   └── db.local.php        # Ignored local credentials override
 ├── database/               # Database schemas and initialization
 │   ├── schema.sql          # Clean, complete database schema with seed data
 │   └── restaurant_pos.sql  # Base schema reference
-├── docs/                   # Documentation assets & guides
+├── docs/                   # Documentation assets
 │   └── assets/saba-logo.png# Official Hotel Saba logo
 ├── images/                 # System branding and static imagery
 ├── js/                     # Hardware integration scripts
@@ -196,6 +241,7 @@ flowchart TD
 ├── waiter/                 # Waiter mobile-optimized POS
 │   ├── _layout.php         # Waiter interface layout
 │   ├── index.php           # Floor table and order creation view
+│   ├── inventory_requests.php # Waiter inventory request form
 │   └── orders.php          # Active orders and item add-on view
 ├── local_print_worker.php  # Windows local polling print worker
 ├── queue_worker.php        # CLI background worker for print queue
@@ -207,26 +253,88 @@ flowchart TD
 
 ---
 
-## Installation & Setup
+## Roles & Permissions
+
+### Confirmed System Roles
+
+| Role | Identifier | Portal / Default Route | Primary Responsibilities |
+| :--- | :--- | :--- | :--- |
+| **System Administrator** | `admin` | `admin/` | Complete operational control, menu management, printer setup, system settings, and user administration. |
+| **Waiter / Server** | `waiter` | `waiter/` | Dining floor table service, order entry, item additions, and order delivery confirmation. |
+| **Cashier** | `cashier` | `cashier/` | Order verification, invoice settlement, payment collection, receipt printing, and shift reconciliation. |
+| **Head Chef / Kitchen** | `chef` / `kitchen` | `station/` | Food preparation queue, preparation time updates, item completion signaling. |
+| **Juice Bar Operator** | `juice_bar` | `station/` | Cold beverage and juice preparation queue. |
+| **Financial Accountant** | `accountant` | `admin/reports.php` | Auditing sales, ledger reports, and daily cashier settlements. |
+| **Warehouse Manager** | `warehouse_manager` | `admin/inventory.php` | Managing raw material stocks, approving requisitions, and receiving purchases. |
+| **Inventory Monitor** | `inventory_monitor` | `admin/inventory.php` | Reviewing stock thresholds, usage logs, and inventory reports. |
+| **Request Coordinator** | `request_coordinator` | `admin/inventory_requests.php` | Routing internal department stock requisitions. |
+| **Hotel Receptionist** | `receptionist` | `admin/room_sales_view.php` | Auditing dining room sales billed to hotel guest room portfolios. |
+
+### Granular Permission Keys
+Administrators can assign fine-grained permission flags to any user account:
+- **Menu Management**: `categories`, `items`
+- **Transactions & Orders**: `orders`, `wallets`, `offers`, `cancel_pending_orders`, `bypass_closed_shift`
+- **Financial Management**: `reports`, `financial_revenues`, `finance.daily_reports.view`
+- **Inventory Management**: `ingredients`, `warehouses`, `inventory`, `inventory_report`, `sales_stats`, `inventory_requests_manage`, `inventory_requests_create`, `stock_management`, `stock_view`
+- **Ticketing & Events**: `ticket_types`, `ticket_sales`
+- **System Administration**: `printers`, `departments`, `settings`, `direct_staff`, `users`, `activity_log`, `item_times`
+
+---
+
+## Database
+
+The database consists of 36 relational tables categorized by operational domain:
+
+* **Core POS & Menu**: `categories`, `items`, `orders`, `order_items`, `offers`, `offer_items`, `discounts`
+* **Printing Pipeline**: `printers`, `departments`, `print_queue`, `print_logs`
+* **Inventory & Warehousing**: `inv_items`, `inv_purchases`, `inv_requests`, `inv_request_items`, `inv_warehouses`, `inv_sub_stock`, `ingredients`, `item_ingredients`, `item_stock`, `item_stock_log`, `item_audit_log`, `inventory_departments`, `inventory_transactions`
+* **Operations & Ticketing**: `daily_settlements`, `direct_staff`, `manual_sales`, `ticket_types`, `ticket_sales`, `wallets`
+* **User Accounts & Audit**: `users`, `roles`, `user_category_permissions`, `activity_log`, `settings`, `messages`, `sse_events`
+
+### Database Setup
+A sanitized, self-contained schema is available in [database/schema.sql](database/schema.sql). It contains the complete schema structure, foreign key relationships, indexes, and safe default seed data (roles, default admin user, and initial system settings).
+
+---
+
+## API
+
+The application exposes structured JSON endpoints consumed by the front-of-house interfaces, background services, and real-time listeners:
+
+| Endpoint | Method | Purpose |
+| :--- | :--- | :--- |
+| `/api/auth.php?action=login` | `POST` | Authenticate staff and establish session |
+| `/api/orders.php?action=create` | `POST` | Create a new table or takeaway order |
+| `/api/orders.php?action=append_items` | `POST` | Append additional items to an active order |
+| `/api/orders.php?action=pay` | `POST` | Settle an order via Cash, Card, Room, or Wallet |
+| `/api/orders.php?action=refund` | `POST` | Process partial or full refund adjustments |
+| `/api/sse.php` | `GET` | Open SSE stream for real-time order/item events |
+| `/api/print_engine.php` | `POST` | Route and dispatch items to department printers |
+| `/api/print_queue.php?action=claim` | `POST` | Atomically claim next pending print job |
+| `/api/print_queue.php?action=mark_done` | `POST` | Mark claimed print job as printed |
+| `/api/activity.php?action=get_logs` | `GET` | Query audit trail with multi-criteria filters |
+| `/api/app_diagnostic.php` | `GET` | Health check and print worker connectivity diagnostic |
+
+---
+
+## Installation
 
 ### Prerequisites
-- **Web Server**: Apache (XAMPP for Windows or Apache2 on Linux).
-- **PHP**: PHP 8.0 or higher with `pdo_mysql`, `curl`, and `mbstring` extensions enabled.
-- **Database**: MySQL 5.7+ or MariaDB 10.4+.
+- **Web Server**: Apache (XAMPP for Windows or Apache2 on Linux)
+- **PHP**: PHP 8.0 or higher with `pdo_mysql`, `curl`, and `mbstring` extensions
+- **Database**: MySQL 5.7+ or MariaDB 10.4+
 
-### Step 1: Clone the Repository
+### Step 1: Clone Repository
 ```bash
-git clone https://github.com/adnanalqham/hotel-saba-restaurant.git
-cd hotel-saba-restaurant
+git clone https://github.com/adnanalqham/restaurant.git
+cd restaurant
 ```
 
 ### Step 2: Initialize Database
-1. Open MySQL / MariaDB (e.g., via phpMyAdmin or MySQL CLI).
-2. Create a fresh database:
+1. Create a fresh database:
    ```sql
    CREATE DATABASE `restaurant_pos` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
-3. Import the clean schema file:
+2. Import the schema file:
    ```bash
    mysql -u root -p restaurant_pos < database/schema.sql
    ```
@@ -242,41 +350,106 @@ define('DB_USER', 'your_database_user');
 define('DB_PASS', 'your_database_password');
 define('DB_NAME', 'restaurant_pos');
 ```
-Alternatively, set the following environment variables on your server: `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`.
+Alternatively, configure server environment variables (`DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`).
 
-### Step 4: Access the Application
-Point your browser to the local URL (e.g., `http://localhost/restaurant/`).
+### Step 4: Launch Web Server
+Ensure the project is served via Apache (e.g., placed inside `C:\xampp\htdocs\restaurant` or configured via a VirtualHost).
 
-#### Default Administrative Credentials:
+Access the application in your browser:
+```text
+http://localhost/restaurant/
+```
+
+#### Default Credentials:
 - **Username**: `admin`
 - **Password**: `password`
 
-*(Please change the default password immediately after initial login via Profile Settings).*
+*(Change the default administrative password immediately after first login via Profile Settings).*
 
 ---
 
-## Printing Setup & Worker Configuration
+## Environment Variables
 
-The system provides flexible printing topologies depending on the physical environment:
+The application reads optional environment variables when `config/db.local.php` is omitted:
 
-### 1. Network Thermal Printers (TCP/IP)
-1. Go to **Admin Panel &rarr; Printers** (`admin/printers.php`).
-2. Add the printer with its static IP address (e.g. `192.168.1.200`) and port `9100`.
-3. In **Departments** (`admin/departments.php`), map the category to its designated printer.
-
-### 2. Local USB / Windows Spooler Thermal Printers
-For printers connected directly to Windows client PCs via USB:
-1. Ensure the thermal printer driver is installed in Windows (e.g., named `POS-Kitchen` or `POS-Cashier`).
-2. In **Admin Panel &rarr; Printers**, specify the **Windows Printer Name** exactly as displayed in Windows Devices & Printers.
-3. Launch the automatic background print worker:
-   - Double-click `start_print_service.bat` or run `start_print_service.ps1`.
-   - The worker will monitor the database print queue and spool binary ESC/POS data directly to the local hardware.
-
-### 3. Waiter Mobile Bluetooth Printing
-- Waiters using Android tablets or smartphones connected to portable Bluetooth receipt printers can print tickets directly using the built-in `native-bridge.js`. The bridge interfaces with Android WebView native handlers or Android print apps (e.g., RawBT).
+| Variable | Default Value | Description |
+| :--- | :--- | :--- |
+| `DB_HOST` | `127.0.0.1` | Database server host or IP |
+| `DB_USER` | `root` | Database user account |
+| `DB_PASS` | `(empty)` | Database user password |
+| `DB_NAME` | `restaurant_pos` | Target database name |
+| `PRINT_API_URL` | `http://localhost/restaurant/` | Target URL used by `local_print_worker.php` |
+| `PRINT_API_TOKEN` | `SHEBA_APP_2026` | Shared authentication token for print queue polling |
 
 ---
 
-## License & Intellectual Property
+## Development
+
+### Background Print Service Setup
+For stations requiring USB thermal receipt printing via the Windows Print Spooler:
+1. Ensure the printer driver is installed in Windows (e.g. named `POS-Kitchen` or `POS-Cashier`).
+2. Run the persistent launcher:
+   - Double-click `start_print_service.bat` or execute `start_print_service.ps1`.
+3. To run the CLI queue worker continuously:
+   ```bash
+   php queue_worker.php --daemon
+   ```
+
+### Testing Diagnostics
+Verify printer engine connectivity and auth headers by opening:
+```text
+http://localhost/restaurant/diagnostics.php
+```
+
+---
+
+## Screenshots / Demo
+
+| Module | Description |
+| :--- | :--- |
+| **Admin Dashboard** | Real-time overview of daily sales, total orders, active staff, and top-selling items. |
+| **Cashier Terminal** | Split-screen order processing with quick payment selection, line discounts, and thermal printing. |
+| **Waiter Floor View** | Mobile-responsive table grid with instant order creation and extra item add-on workflows. |
+| **Kitchen Monitor** | Real-time preparation queue filtered by assigned station categories with audio alerts. |
+
+---
+
+## Documentation
+
+- **Database Reference**: See [database/schema.sql](database/schema.sql) for table definitions, indices, and foreign key constraints.
+- **Hardware Printing Guide**: See [local_print_worker.php](local_print_worker.php) and [api/print_engine.php](api/print_engine.php) for department routing rules and ESC/POS byte formats.
+- **Mobile Integration**: See [js/native-bridge.js](js/native-bridge.js) for Android WebView bridge implementation.
+
+---
+
+## Security
+
+- **Credential Isolation**: Production database passwords and server details are excluded from Git via `config/db.local.php` and `.gitignore`.
+- **Shift Locking**: Completed shift records are locked against retrospective tampering; overrides require manager permissions and generate audit logs.
+- **Prepared Statements**: All database operations use PDO prepared statements with parameter binding to prevent SQL injection.
+- **Session Protection**: Strict session cookies scoped to application base paths with role-based validation on every route.
+- **Audit Logging**: Sensitive operations (order deletions, shift unlocks, price adjustments) are recorded in the `activity_log` table with client user and timestamp.
+
+---
+
+## Roadmap
+
+- [x] Multi-department thermal printing with network and USB spooling support.
+- [x] Closed shift locking and audit bypass workflow.
+- [x] Search and filtering in the activity audit log.
+- [x] Visual preparation time distribution charts.
+- [ ] Progressive Web App (PWA) offline service caching for waiter tablets.
+- [ ] QR code digital menu and table ordering for hotel guests.
+- [ ] Direct PMS (Property Management System) API integration for room charges.
+
+---
+
+## License
 
 Proprietary software developed for **Hotel Saba**. All rights reserved.
+
+---
+
+## Credits / Footer
+
+Developed and maintained for **Hotel Saba** by [adnanalqham](https://github.com/adnanalqham).
