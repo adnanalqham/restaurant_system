@@ -2,454 +2,449 @@
   <img src="docs/assets/saba-logo.png" alt="Hotel Saba Restaurant Management System" width="180">
 </div>
 
-<h1 align="center">Hotel Saba Restaurant Management System</h1>
+<h1 align="center">نظام إدارة مطعم ونقاط بيع فندق سبأ</h1>
 
 <p align="center">
-  A professional restaurant management and POS system for hotel food and beverage operations.
+  منظومة برمجية متكاملة لإدارة صالات المطاعم ونقاط البيع (POS)، وتتبع دورة حياة الطلبات لحظياً، وتوجيه الطباعة الحرارية متعددة الأقسام، وإدارة المخزون والمحاسبة الفندقية.
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-8.x-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.x">
-  <img src="https://img.shields.io/badge/Database-MySQL%20%7C%20MariaDB-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
-  <img src="https://img.shields.io/badge/Frontend-Vanilla%20JS%20%7C%20CSS3-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/RealTime-Server--Sent%20Events%20(SSE)-FF6C37?style=flat-square" alt="SSE">
-  <img src="https://img.shields.io/badge/Printing-ESC%2FPOS%20%7C%20TCP%20%7C%20Spooler-2C3E50?style=flat-square" alt="ESC/POS Printing">
-  <img src="https://img.shields.io/badge/Status-Production%20Ready-2ECC71?style=flat-square" alt="Production Ready">
+  <img src="https://img.shields.io/badge/قاعدة_البيانات-MySQL_%7C_MariaDB-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
+  <img src="https://img.shields.io/badge/الواجهة-Vanilla_JS_%7C_CSS3-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/التحديث_اللحظي-Server--Sent_Events_(SSE)-FF6C37?style=flat-square" alt="SSE">
+  <img src="https://img.shields.io/badge/الطباعة-ESC%2FPOS_%7C_TCP_%7C_Spooler-2C3E50?style=flat-square" alt="ESC/POS Printing">
+  <img src="https://img.shields.io/badge/الحالة-جاهز_للتشغيل_الإنتاجي-2ECC71?style=flat-square" alt="Production Ready">
 </p>
 
 ---
 
-## Table of Contents
+## فهرس المحتويات
 
-- [Overview](#overview)
-- [Key Features](#key-features)
-  - [POS & Cashier](#pos--cashier)
-  - [Waiter Operations](#waiter-operations)
-  - [Kitchen & Stations](#kitchen--stations)
-  - [Inventory](#inventory)
-  - [Orders & Tables](#orders--tables)
-  - [Printing](#printing)
-  - [Reporting](#reporting)
-  - [Administration](#administration)
-- [System Architecture](#system-architecture)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Roles & Permissions](#roles--permissions)
-- [Database](#database)
-- [API](#api)
-- [Installation](#installation)
-- [Environment Variables](#environment-variables)
-- [Development](#development)
-- [Screenshots / Demo](#screenshots--demo)
-- [Documentation](#documentation)
-- [Security](#security)
-- [Roadmap](#roadmap)
-- [License](#license)
-- [Credits / Footer](#credits--footer)
+- [نظرة عامة](#نظرة-عامة)
+- [المزايا الرئيسية](#المزايا-الرئيسية)
+  - [نقاط البيع والكاشير (POS & Cashier)](#نقاط-البيع-والكاشير-pos--cashier)
+  - [خدمة الصالة والويترز (Waiters & Floor Service)](#خدمة-الصالة-والويترز-waiters--floor-service)
+  - [محطات التحضير والمطبخ (Kitchen & Stations)](#محطات-التحضير-والمطبخ-kitchen--stations)
+  - [منظومة الطباعة الحرارية (Thermal Printing)](#منظومة-الطباعة-الحرارية-thermal-printing)
+  - [المخزون والمستودعات (Inventory & Warehousing)](#المخزون-والمستودعات-inventory--warehousing)
+  - [المحاسبة والتقارير الفندقية (Reports & Accounting)](#المحاسبة-والتقارير-الفندقية-reports--accounting)
+  - [الإدارة والرقابة (Administration & Audit)](#الإدارة-والرقابة-administration--audit)
+- [آلية عمل النظام (Workflow)](#آلية-عمل-النظام-workflow)
+- [الهندسة المعمارية (System Architecture)](#الهندسة-المعمارية-system-architecture)
+- [التقنيات المستخدمة (Technology Stack)](#التقنيات-المستخدمة-technology-stack)
+- [هيكلية المشروع (Project Structure)](#هيكلية-المشروع-project-structure)
+- [أدوار وصلاحيات المستخدمين (Roles & Permissions)](#أدوار-وصلاحيات-المستخدمين-roles--permissions)
+- [قاعدة البيانات (Database)](#قاعدة-البيانات-database)
+- [واجهة برمجة التطبيقات (API Reference)](#واجهة-برمجة-التطبيقات-api-reference)
+- [التثبيت والتشغيل المحلي (Installation & Setup)](#التثبيت-والتشغيل-المحلي-installation--setup)
+- [إعدادات البيئة (Environment Variables)](#إعدادات-البيئة-environment-variables)
+- [تشغيل عمال الطباعة (Print Workers)](#تشغيل-عمال-الطباعة-print-workers)
+- [الأمان وحماية البيانات (Security)](#الأمان-وحماية-البيانات-security)
+- [خطة التطوير المستقبلية (Roadmap)](#خطة-التطوير-المستقبلية-roadmap)
+- [الترخيص والحقوق (License)](#الترخيص-والحقوق-license)
 
 ---
 
-## Overview
+## نظرة عامة
 
-The **Hotel Saba Restaurant Management System** is a purpose-built, on-premise and cloud-ready hospitality platform engineered specifically for Hotel Saba's restaurant, kitchen, beverage, and dining facilities.
+صُمم **نظام إدارة مطعم فندق سبأ** ليكون منصة تشغيلية مركزية تلبي الاحتياجات اليومية المعقدة لقطاع الأغذية والمشروبات (F&B) داخل الفندق. 
 
-The system addresses critical operational bottlenecks in fast-paced dining environments:
-- **Eliminating Lost Tickets**: Real-time dispatching between floor servers and food preparation stations.
-- **Multi-Department Routing**: Splitting items automatically to specialized thermal printers (hot kitchen, cold appetizers, beverage bar).
-- **Consolidating Billing**: Handling cash, credit cards, room charges for hotel guests, and customer digital wallets in a unified cashier drawer.
-- **Preventing Leakage**: Shift-based locking mechanisms, role-based restrictions, and detailed audit trails for sensitive operations.
-- **Streamlining Inventory**: Tracking ingredient consumption and handling internal stock requisition workflows.
-
----
-
-## Key Features
-
-### POS & Cashier
-- **High-Speed Checkout Terminal**: Built for rapid order lookup, table selection, and direct walk-in billing.
-- **Flexible Settlement Channels**: Supports **Cash**, **Credit Card**, **Hotel Room Charge** (integrated with room view), and **Customer Digital Wallets**.
-- **Discounts & Surcharges**: Configurable line-item discounts, promotional coupons (`offers`), tax rates, and optional service charges.
-- **Refunds & Adjustments**: Safe partial or full refund tracking with transparent balance calculation and reprint indicators.
-- **Cashier Drawer & Shift Management**: Daily shift cutoff enforcement with end-of-shift reconciliation and daily settlement reporting.
-
-### Waiter Operations
-- **Floor-Optimized Mobile View**: Touch-friendly interface tailored for handheld tablets and smartphones.
-- **Table Status Monitoring**: Visual breakdown of dining tables, active covers, and occupied stations.
-- **Add Items to Active Orders**: Real-time addition of extra items to already open orders with distinct visual badges for new vs. previously submitted items.
-- **Live Ticket Status**: Instant status tracking informing servers when dishes are in preparation or ready for pickup.
-- **Mobile Printing**: Wireless thermal receipt printing directly from the server's mobile device via Bluetooth bridge.
-
-### Kitchen & Stations
-- **Station-Specific Dispatch Screens**: Dedicated monitors for Kitchen Chefs (`chef`), Juice & Beverage Bars (`juice_bar`), and Waiter Stations.
-- **Category Permissions**: Each station user can be restricted to view only their assigned item categories (`user_category_permissions`).
-- **Granular Line-Item Status**: Stations can mark items as `in_progress`, `ready`, or `rejected` with instant feedback to waitstaff and cashier.
-- **Preparation Time Tracking**: Real-time benchmarking of ticket creation to completion time per dish.
-- **Audible & Visual Alerts**: Sound notifications and pulsing badges triggered instantly upon new incoming orders.
-
-### Inventory
-- **Ingredient & Raw Material Catalog**: Tracking raw goods (`inv_items`), measuring units, and minimum safety stock thresholds.
-- **Purchase Order Tracking**: Recording supplier stock replenishment, cost values, purchase dates, and receiving staff.
-- **Multi-Tier Requisition Workflow**: Station requests (`inv_requests`) routed through coordinators and warehouse managers for approval and issuance.
-- **Stock Log Auditing**: Change history logging (`item_audit_log` and `item_stock_log`) for inventory accountability.
-
-### Orders & Tables
-- **Comprehensive Lifecycle**: Progression across `pending` &rarr; `sent_to_cashier` &rarr; `in_progress` &rarr; `ready` &rarr; `delivered` / `paid` / `cancelled`.
-- **Closed Shift Security**: Automatically prevents modifications or reprints on orders created during closed shifts unless unlocked by an authorized manager.
-- **Special Event Ticket Sales**: Integrated ticketing module (`ticket_types` & `ticket_sales`) for hotel buffet passes and special dinner events.
-
-### Printing
-- **Intelligent Department Routing**: Automatic dispatch of items based on Category &rarr; Department &rarr; Designated Printer.
-- **Dual Hardware Spooling**:
-  - **Network Thermal Printers**: Raw ESC/POS byte streaming via TCP sockets (`port 9100`).
-  - **Local USB / Windows Printers**: Direct Windows Print Spooler P/Invoke via background service.
-- **Asynchronous Print Queue**: Database-backed queue (`print_queue`) with atomic job claiming (`SELECT FOR UPDATE`), pre-built binary buffers, and idempotency protection (`request_id`).
-- **Local Print Worker Service**: Standalone background workers (`local_print_worker.php`, `start_print_service.bat`, `start_print_service.ps1`) for polling cloud servers and printing to local hardware.
-- **Mobile Bluetooth Bridge**: Seamless integration via `js/native-bridge.js` supporting Android WebView / Flutter channels and print intent apps (RawBT).
-
-### Reporting
-- **Financial Daily Summaries**: Breakdown of sales, payment methods, discounts, and net revenues.
-- **Sales Statistics & Analytics**: Top-selling items, category performance, and item prep time distributions with visual Chart.js graphs.
-- **Room Sales Audit**: Dedicated hotel room charge reconciliation for front-desk audit.
-- **Excel & Print Export**: Instant generation of structured accounting spreadsheets and thermal summaries.
-
-### Administration
-- **Centralized Dashboard**: Live revenue metrics, active order counters, and operational statistics.
-- **Menu Engineering**: Category and item management with image upload, item description, and pricing controls.
-- **Printer & Hardware Setup**: IP printer discovery, Windows spooler name mapping, and department assignments.
-- **Granular Permissions**: Role management coupled with fine-grained checkbox permissions.
-- **Activity Audit Trail**: Searchable audit log with multi-criteria filtering by action, user, and date.
+يربط النظام بين طاقم خدمة الصالة (الويترز)، ومحطات التحضير (المطبخ الساخن، المشويات، البار والعصائر)، ومكاتب الكاشير، وإدارة المستودعات، والشؤون المالية؛ مما يحل المشكلات التشغيلية الشائعة:
+- **منع ضياع الطلبات وتأخيرها**: عبر مزامنة فورية بالـ SSE بين الصالة ومحطات التحضير.
+- **توزيع الطلبات ذكياً على الطابعات**: تقسيم أصناف الفاتورة آلياً وإرسال كل صنف إلى طابعة القسم المخصصة له.
+- **تعدد قنوات الدفع الفندقي**: دعم السداد النقدي، والبطاقات البنكية، والخصم المباشر من المحافظ الرقمية للعملاء، بالإضافة إلى ترحيل الحساب مباشرة على أرقام غرف نزلاء الفندق.
+- **إحكام الرقابة والحد من الهدر**: عبر إغلاق الشفتات مالياً ومنع تعديل الفواتير المغلقة إلا بصلاحيات إدارية خاصة وموثقة في سجل الرقابة.
 
 ---
 
-## System Architecture
+## المزايا الرئيسية
+
+### نقاط البيع والكاشير (POS & Cashier)
+- **واجهة دفع سريعة**: معالجة سريعة لطلبات الصالة والسفري وطلبات الغرف.
+- **طرق سداد مرنة**: تحصيل المبالغ عبر: **نقداً (Cash)**، **بطاقة بنكية (Card)**، **تحميل على الغرفة (Room Charge)**، أو **المحفظة الإلكترونية (Wallet)**.
+- **الخصومات والضريبة والخدمة**: تطبيق نسب الخصم المعتمدة، وضريبة القيمة المضافة، ورسوم الخدمة آلياً.
+- **معالجة المرتجعات والتسويات**: دعم الاسترجاع الجزئي أو الكلي مع توضيح الفروقات الحسابية في الفاتورة المطبوعة.
+- **إدارة الشفتات اليومية**: قفل الشفتات زمنياً، ومطابقة الصندوق اليومي (Cash Drawer Reconciliation)، واستخراج تقارير إغلاق الوردية للكاشير.
+
+### خدمة الصالة والويترز (Waiters & Floor Service)
+- **واجهة مخصصة للأجهزة اللوحية والجوال**: تصميم متجاوب يعمل بسلاسة على شاشات اللمس لأجهزة الويترز المحمولة.
+- **متابعة الطاولات**: استعراض فوري لحالة كل طاولة (شاغرة، مشغولة، قيد التحضير).
+- **إضافة أصناف جديدة لطلب مفتوح**: إمكانية إلحاق أصناف إضافية على نفس الطلب، مع تمييز الأصناف المطبوعة مسبقاً عن الجديدة لمنع التكرار في المطبخ.
+- **إشعارات جاهزية الأطباق**: تلقي تنبيهات مرئية فور انتهاء الطهاة من تجهيز الطلب لتقديمه للزبون مباشرة.
+- **طباعة متنقلة عبر البلوتوث**: إمكانية إرسال الفاتورة أو إشعار الطلب مباشرة من جوال الويتر إلى طابعة البلوتوث المحمولة.
+
+### محطات التحضير والمطبخ (Kitchen & Stations)
+- **شاشات عرض مخصصة لكل قسم**: شاشات خاصة بـ **الشيف والمطبخ الساخن**، وشاشات خاصة بـ **مسؤول العصائر والمشروبات الباردة**.
+- **حصر الأصناف حسب الصلاحية**: تقييد كل محطة بعرض وتجهيز الأصناف التابعة لأقسامها فقط (`user_category_permissions`).
+- **تحديث حالة الصنف خطوة بخطوة**: تغيير حالة كل صنف على حدة (`قيد التجهيز` &rarr; `جاهز` &rarr; `مرفوض`) مع ذكر أسباب الرفض إن وجدت.
+- **قياس أوقات التحضير**: احتساب دقيق للمدة الزمنية المستغرقة من وقت تسجيل الطلب وحتى إنجازه وتحليله بيانيا.
+- **تنبيهات صوتية فورية**: إصدار تنبيهات صوتية عند وصول طلبات جديدة أو طلبات معدلة للفت انتباه طاقم التحضير دون الحاجة لتحديث الشاشة يدوياً.
+
+### منظومة الطباعة الحرارية (Thermal Printing)
+- **التوجيه التلقائي للأقسام (Department Routing)**: فحص مكونات الطلب وتقسيمها حسب مسار: `الصنف` &larr; `الفئة` &larr; `القسم` &larr; `طابعة القسم`.
+- **دعم الطابعات الشبكية (TCP/IP)**: بث مباشر لبيانات ESC/POS الثنائية عبر مقابس الشبكة (`Port 9100`) بدون الحاجة لتعريفات معقدة.
+- **دعم الطابعات المحلية (USB / Windows Spooler)**: التخاطب المباشر مع طابعات ويندوز عبر استدعاءات `winspool.drv` المباشرة من خلال مشغل الخلفية.
+- **طابور طباعة غير متزامن (Print Queue)**: قاعدة بيانات وسيطة تضمن عدم ضياع أي أمر طباعة في حال انقطاع الشبكة، مع ميزة التحصيل الذري للأمر (`SELECT FOR UPDATE`) لمنع تكرار الطباعة.
+- **خدمة الطباعة المحلية (Local Print Worker)**: مشغل ويندوز مستقل يعمل كخدمة مراقبة لمزامنة أوامر الطباعة السحابية وطباعتها على الأجهزة المحلية.
+
+### المخزون والمستودعات (Inventory & Warehousing)
+- **دليل المواد الخام والمكونات**: تعريف مكونات الأطباق ووحدات القياس وحدود الطلب الأدنى (Minimum Stock).
+- **إدارة المشتريات والتوريد**: تسجيل فواتير الشراء، وأسعار التكلفة، وتحديث الأرصدة تلقائياً في المستودعات.
+- **سلسلة طلبات الصرف الداخلي (`inv_requests`)**: دورة مستندية تبدأ من طلب الويتر أو الشيف للمواد، ثم اعتماد منسق الطلبات، ثم صرفها رسمياً من أمين المستودع.
+- **سجل رقابة المخزون**: تتبع تفصيلي لجميع حركات الإدخال والخصم والتعديل على أرصدة الأصناف.
+
+### المحاسبة والتقارير الفندقية (Reports & Accounting)
+- **ملخصات الإيرادات اليومية**: تصنيف شامل للإيرادات حسب طريقة الدفع، والورديات، وصافي المبيعات بعد الخصم والضريبة.
+- **تحليلات مبيعات الأصناف**: رسوم بيانية توضح الأصناف الأكثر طلباً وأوقات الذروة في المطعم.
+- **مطابقة مبيعات الغرف (Room Sales View)**: تقرير خاص لتدقيق الفواتير المرحلة على غرف الفندق ومطابقتها مع الاستقبال والـ PMS.
+- **تصدير إكسل وطباعة حرارية**: إمكانية تصدير كافة الجداول والتقارير المالية والتحليلية إلى ملفات Excel جاهزة، أو طباعتها ملخصة عبر الطابعة الحرارية.
+
+### الإدارة والرقابة (Administration & Audit)
+- **لوحة تحكم مركزية (KPI Dashboard)**: مؤشرات حية لإجمالي مبيعات اليوم، والطلبات الجارية، والمستخدمين النشطين.
+- **إدارة قائمة الطعام (Menu Management)**: التحكم الكامل بالأصناف، والأسعار، والصور، والأحجام والخيارات المتعددة، والعروض الخاصة.
+- **نظام تذاكر الفعاليات**: إدارة وبيع تذاكر البوفيهات والمناسبات الخاصة وحفلات الفندق (`ticket_sales`).
+- **سجل المراقبة والمتابعة (Audit Log)**: تسجيل فوري لكافة العمليات الحساسة (حذف طلب، تجاوز شفت مغلق، استرجاع مالي) مع خاصية البحث المخصص برقم الطلب، أو العملية، أو اسم المستخدم، أو التاريخ.
+
+---
+
+## آلية عمل النظام (Workflow)
 
 ```text
-Browser / POS Interfaces (Waiters, Cashiers, Kitchen, Admin)
+       ┌───────────────────────────────┐
+       │   خدمة الصالة (الويتر / كابتن) │
+       │   تسجيل الطلب واختيار الطاولة │
+       └──────────────┬────────────────┘
+                      │ (إرسال الطلب عبر REST API)
+                      ▼
+       ┌───────────────────────────────┐
+       │   النظام المركزي وقاعدة البيانات │
+       └───────┬──────────────┬────────┘
+               │              │
+    (بث لحظي SSE)      (محرك تجزئة الطباعة)
+               │              │
+               ▼              ▼
+   ┌─────────────────────┐   ┌─────────────────────────────────────────┐
+   │ شاشات محطات التحضير  │   │ توجيه أوامر الطباعة الحرارية              │
+   │ (المطبخ / البار)     │   ├───────────────────┬─────────────────────┤
+   │ إشعار صوتي ومرئي    │   │ طابعات شبكية (TCP) │ طابور محلي (Queue)   │
+   │ تحديث حالة التجهيز  │   │ للمطبخ والمشروبات  │ لعامل ويندوز Spooler │
+   └───────────┬─────────┘   └───────────────────┴──────────┬──────────┘
+               │                                            │
+               ▼                                            ▼
+   ┌────────────────────────────────────────────────────────┴──────────┐
+   │                     نقطة بيع الكاشير (المحاسبة)                   │
+   │    مراجعة الحساب ◄► تطبيق الخصم ◄► السداد (نقد/شبكة/غرفة/محفظة)   │
+   │              إصدار وطباعة الفاتورة الضريبية للزبون                │
+   └───────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## الهندسة المعمارية (System Architecture)
+
+```text
+واجهات المستخدم التفاعلية (Responsive Web UI)
+├── صالة الويترز (جوالات / أجهزة لوحية)
+├── شاشة الكاشير والمحاسبة (أجهزة كمبيوتر / شاشات لمس)
+├── شاشات محطات التحضير (المطبخ / العصائر)
+└── لوحة تحكم الإدارة والمحاسبة
+        │
+        ▼ (HTTP Requests & EventSource SSE)
+طبقة خادم التطبيق (PHP 8.x Core Engine)
+├── موجه الأدوار والصلاحيات (Role Router & Auth Guard)
+├── واجهات برمجية مهيكلة (RESTful JSON APIs)
+├── بث الأحداث اللحظية (Server-Sent Events Service)
+└── محرك الطباعة والتوجيه (Department Print Engine)
+        │
+        ▼ (PDO Transactions & Prepared Statements)
+طبقة البيانات (MySQL / MariaDB Relational Database)
+├── جداول العمليات ونقاط البيع (36 جدولاً مترابطاً)
+├── طابور أحداث الـ SSE وطابور الطباعة
+└── سجل الرقابة والنشاطات (Activity Audit Trail)
         │
         ▼
-     PHP Application
-        │
-        ├── REST / JSON APIs (api/orders.php, api/reports.php, etc.)
-        ├── SSE Notifications (api/sse.php -> sse_events table)
-        ├── Printing Engine (api/print_engine.php & ESC/POS generator)
-        └── Business Modules (admin/, cashier/, waiter/, station/)
-                │
-                ▼
-          MySQL / MariaDB (InnoDB, UTF-8 mb4, Relational Constraints)
-                │
-                ▼
-          Printing Pipeline
-                ├── Direct TCP/IP Network Printers (port 9100)
-                ├── Print Queue (`print_queue` table)
-                │       └── Windows Local Print Worker (`local_print_worker.php`)
-                │               └── Windows Print Spooler (`winspool.drv`)
-                └── Android Bluetooth Bridge (`js/native-bridge.js`)
+منظومة إخراج الطباعة الفعلية (Hardware Output Layer)
+├── طابعات الشبكة الحرارية (Thermal Network Printers - Port 9100)
+├── طابعات USB المحلية عبر Windows Spooler P/Invoke
+└── طابعات البلوتوث المحمولة عبر جسر Android Native Bridge
 ```
 
 ---
 
-## Technology Stack
+## التقنيات المستخدمة (Technology Stack)
 
-| Layer | Technology | Details |
+| المجال | التقنية | الوصف والتطبيق الفعلي |
 | :--- | :--- | :--- |
-| **Backend Language** | PHP 8.x | Native PDO, strict types, session management, JSON responses |
-| **Database** | MySQL 5.7+ / MariaDB 10.4+ | InnoDB engine, `utf8mb4_unicode_ci`, foreign key constraints |
-| **Real-Time Communication** | Server-Sent Events (SSE) | Event queue via database table `sse_events` |
-| **Frontend Core** | HTML5, Vanilla JavaScript (ES6+) | Modern async/await, Fetch API, EventSource listeners |
-| **Frontend Styling** | CSS3 Custom Properties | Responsive layout, dark/light theme tokens, Flexbox & CSS Grid |
-| **Icons & Typography** | FontAwesome 6, Google Fonts | Cairo & Inter typography |
-| **Visual Analytics** | Chart.js | Interactive preparation time charts and sales distributions |
-| **Thermal Printing** | ESC/POS Binary Protocol | TCP sockets (`fsockopen`), Windows Spooler API (`winspool.drv`), Bluetooth SPP |
-| **Web Server** | Apache (XAMPP / Linux) | Directory security and routing via `.htaccess` |
+| **لغة الباك إند** | **PHP 8.x** | مبني عبر Native PHP PDO بنمط وحدات برمجية منظمة، واستخدام الجلسات المشفرة، وإخراج JSON APIs. |
+| **قاعدة البيانات** | **MySQL 5.7+ / MariaDB 10.4+** | محرك `InnoDB`، ترميز `utf8mb4_unicode_ci`، علاقات مفاتيح أجنبية وقيود سلامة البيانات ومعاملات ذرية (Transactions). |
+| **التحديث اللحظي** | **Server-Sent Events (SSE)** | بث فوري مستمر للأحداث من السيرفر إلى المتصفحات دون استنزاف موارد المعالج والذاكرة. |
+| **الواجهة الأمامية** | **Vanilla JavaScript (ES6+)** | كود جافاسكريبت نقي وسريع باستخدام `async/await`، و `Fetch API`، و `EventSource` دون الحاجة لأطر عمل ثقيلة. |
+| **التصميم والتنسيق** | **CSS3 Modern Variables** | نظام تصميم متكامل يعتمد على متغيرات CSS المخصصة (Design Tokens)، و Flexbox، و CSS Grid متجاوب بالكامل. |
+| **الأيقونات والخطوط** | **FontAwesome 6 + Google Fonts** | أيقونات عصرية، وخطوط عربية واضحة ومقروءة على مختلف الشاشات (Cairo & Inter). |
+| **الرسوم البيانية** | **Chart.js** | عرض بياني تحليلي لأوقات تحضير الوجبات، ومقارنة سرعة أداء المحطات. |
+| **بروتوكولات الطباعة** | **ESC/POS Binary Standard** | توليد مباشر لأوامر الطابعات الحرارية الثنائية، ودعم المقابس الشبكية `fsockopen`، وربط مشغل ويندوز `winspool.drv`. |
+| **خادم الويب** | **Apache** | يعمل بمرونة تامة على خوادم XAMPP المحلية وخوادم الاستضافة السحابية مع قواعد توجيه `.htaccess`. |
 
 ---
 
-## Project Structure
+## هيكلية المشروع (Project Structure)
 
 ```text
-├── admin/                  # Administrative management panel
-│   ├── _layout.php         # Base layout, dynamic navigation, and permission gates
-│   ├── activity_log.php    # Audit log with multi-criteria filtering
-│   ├── bulk_import.php     # Batch item import utility
-│   ├── categories.php      # Category management and department mapping
-│   ├── departments.php     # Department printer assignment
-│   ├── direct_staff.php    # Direct dining staff assignment
-│   ├── financial_revenues.php # Financial revenue tracking and analytics
-│   ├── index.php           # Main admin KPI dashboard
-│   ├── ingredients.php     # Inventory raw materials catalog
-│   ├── inventory.php       # Stock intake and purchase order entry
-│   ├── inventory_report.php# Stock level and consumption reports
-│   ├── inventory_requests.php # Multi-tier internal requisition manager
-│   ├── item_audit_logs.php # Item price and status modification audit
-│   ├── item_stock.php      # Finished goods stock tracking
-│   ├── item_times.php      # Kitchen preparation duration analytics
-│   ├── items.php           # Menu item catalog and pricing
-│   ├── offers.php          # Promotional discounts and special combos
-│   ├── orders.php          # Comprehensive order management
-│   ├── printers.php        # Hardware printer network and spooler setup
-│   ├── reports.php         # Sales, daily settlements, and revenue reports
-│   ├── room_sales_view.php # Hotel room charge audit view
-│   ├── sales_stats.php     # Sales velocity and item popularity stats
-│   ├── settings.php        # Restaurant parameters, tax, currency, shift times
-│   ├── ticket_sales.php    # Event and buffet ticket sales manager
-│   ├── ticket_types.php    # Ticket tier configuration
-│   ├── users.php           # Staff account management and permissions
-│   ├── wallets.php         # Customer digital wallet accounts
-│   └── warehouses.php      # Storage warehouse configuration
-├── api/                    # RESTful endpoints & real-time handlers
-│   ├── activity.php        # Activity log API with multi-criteria search
-│   ├── admin_actions.php   # Administrative action handlers
-│   ├── app_diagnostic.php  # Public connectivity diagnostic endpoint
-│   ├── auth.php            # Authentication and session API
-│   ├── categories.php      # Category CRUD API
-│   ├── departments.php     # Department configuration API
-│   ├── export_report.php   # Excel spreadsheet export engine
-│   ├── inventory.php       # Inventory stock and requisition API
-│   ├── items.php           # Menu item catalog API
-│   ├── orders.php          # Core transaction and order lifecycle engine
-│   ├── print_direct.php    # Direct printing HTTP handler
-│   ├── print_direct_lib.php# ESC/POS binary builder & Windows spooler library
-│   ├── print_engine.php    # Department routing and socket transmission
-│   ├── print_queue.php     # Print queue claim and status endpoints
-│   ├── printers.php        # Printer hardware CRUD API
-│   ├── reports.php         # Financial analytics API
-│   ├── sse.php             # Server-Sent Events event broadcast stream
-│   ├── tickets.php         # Ticket sales transaction API
-│   └── users.php           # User account and permissions API
-├── assets/                 # Static frontend assets
-│   ├── css/style.css       # Unified design system & responsive styling
-│   └── js/app.js           # Client application utilities, toasts, and modals
-├── cashier/                # Dedicated Cashier POS station
-│   ├── _layout.php         # Cashier layout and navigation
-│   ├── index.php           # Cashier order monitor and checkout console
-│   └── reports.php         # Shift settlements and cashier summaries
-├── config/                 # Configuration and environment setup
-│   ├── db.php              # Database connector & environment loader
-│   ├── db.example.php      # Sample configuration template
-│   └── db.local.php        # Ignored local credentials override
-├── database/               # Database schemas and initialization
-│   ├── schema.sql          # Clean, complete database schema with seed data
-│   └── restaurant_pos.sql  # Base schema reference
-├── docs/                   # Documentation assets
-│   └── assets/saba-logo.png# Official Hotel Saba logo
-├── images/                 # System branding and static imagery
-├── js/                     # Hardware integration scripts
-│   └── native-bridge.js    # Android / Bluetooth thermal printing bridge
-├── station/                # Kitchen & Bar preparation station
-│   ├── _layout.php         # Station layout and audio alerts
-│   └── index.php           # Real-time prep ticket monitor
-├── uploads/                # User-uploaded item images (.gitkeep protected)
-├── waiter/                 # Waiter mobile-optimized POS
-│   ├── _layout.php         # Waiter interface layout
-│   ├── index.php           # Floor table and order creation view
-│   ├── inventory_requests.php # Waiter inventory request form
-│   └── orders.php          # Active orders and item add-on view
-├── local_print_worker.php  # Windows local polling print worker
-├── queue_worker.php        # CLI background worker for print queue
-├── print_receipt.php       # Multi-language thermal receipt renderer
-├── start_print_service.bat # Windows CMD persistent print service launcher
-├── start_print_service.ps1 # Windows PowerShell print service launcher
-└── index.php               # Root entry point and authenticated role router
+├── admin/                  # لوحة التحكم والإدارة المركزية
+│   ├── _layout.php         # الهيكل العام للوحة وقائمة التنقل الديناميكية
+│   ├── activity_log.php    # سجل المراقبة والمتابعة وفلاتر البحث المتقدمة
+│   ├── bulk_import.php     # أداة الاستيراد الجماعي للمنيو
+│   ├── categories.php      # إدارة أقسام وفئات المنيو
+│   ├── departments.php     # إدارة أقسام التحضير وتوزيع الطابعات
+│   ├── direct_staff.php    # تعيين عمال الصالة المباشرين
+│   ├── financial_revenues.php # شاشة الإيرادات والتحليلات المالية
+│   ├── index.php           # لوحة الإحصائيات العامة (Dashboard)
+│   ├── ingredients.php     # المواد الخام ومكونات الوجبات
+│   ├── inventory.php       # إدخال المشتريات ومراقبة المخزن
+│   ├── inventory_report.php# تقارير الجرد والاستهلاك
+│   ├── inventory_requests.php # إدارة واعتماد طلبات صرف المخزن
+│   ├── item_audit_logs.php # تتبع سجل تعديل أسعار وحالات الأصناف
+│   ├── item_stock.php      # أرصدة الأصناف الجاهزة للبيع
+│   ├── item_times.php      # تحليل ورسم بياني لأوقات تحضير الوجبات
+│   ├── items.php           # إدارة المنيو وتفاصيل الوجبات والأسعار
+│   ├── offers.php          # العروض الخاصة والوجبات المجمعة
+│   ├── orders.php          # استعراض وإدارة جميع طلبات المطعم
+│   ├── printers.php        # ضبط وإعداد الطابعات (شبكية / محلية)
+│   ├── reports.php         # تقارير المبيعات الشاملة وتقفيل الكاشير
+│   ├── room_sales_view.php # تدقيق مبيعات غرف نزلاء الفندق
+│   ├── sales_stats.php     # إحصائيات المبيعات والأصناف الأكثر طلباً
+│   ├── settings.php        # إعدادات النظام (الاسم، العملة، الضريبة، وقت الشفت)
+│   ├── ticket_sales.php    # بيع وتدقيق تذاكر الفعاليات والبوفيهات
+│   ├── ticket_types.php    # أنواع وباقات تذاكر الفعاليات
+│   ├── users.php           # شاشة المستخدمين وصلاحياتهم المخصصة
+│   ├── wallets.php         # شحن ومتابعة محافظ العملاء الرقمية
+│   └── warehouses.php      # تعريف المستودعات وأماكن التخزين
+├── api/                    # الواجهات البرمجية ونقاط النهاية (RESTful & SSE)
+│   ├── activity.php        # استرجاع سجل النشاطات مع الفلاتر
+│   ├── admin_actions.php   # معالجة العمليات الإدارية الخاصة
+│   ├── app_diagnostic.php  # فحص الاتصال وصحة مشغلات الطباعة
+│   ├── auth.php            # تسجيل الدخول والتحقق من الجلسات
+│   ├── categories.php      # استرجاع وتعديل الفئات
+│   ├── departments.php     # واجهة ربط الأقسام بالطابعات
+│   ├── export_report.php   # محرك تصدير التقارير إلى ملفات Excel
+│   ├── inventory.php       # عمليات المخزن وطلبات الصرف
+│   ├── items.php           # جلب الأصناف وتفاصيلها
+│   ├── orders.php          # محرك معالجة الطلبات، الدفع، والإلغاء
+│   ├── print_direct.php    # إرسال أوامر الطباعة المباشرة
+│   ├── print_direct_lib.php# مكتبة صياغة أوامر ESC/POS ومشغل ويندوز
+│   ├── print_engine.php    # محرك التوجيه الذكي للمطابخ والأقسام
+│   ├── print_queue.php     # إدارة طابور الطباعة والسحب الذري
+│   ├── printers.php        # واجهة ضبط الطابعات
+│   ├── reports.php         # استعلامات التقارير المالية واليومية
+│   ├── sse.php             # البث المباشر للأحداث عبر SSE
+│   ├── tickets.php         # معالجة حركات بيع التذاكر
+│   └── users.php           # إدارة حسابات المستخدمين وصلاحياتهم
+├── assets/                 # الملفات الثابتة (التنسيقات والسكربتات)
+│   ├── css/style.css       # ملف التنسيق الأساسي ونظام الألوان المتجاوب
+│   └── js/app.js           # دوال المساعدة، النوافذ المنبثقة، والرسائل
+├── cashier/                # بوابة شاشة الكاشير ونقاط البيع
+│   ├── _layout.php         # هيكل شاشة الكاشير
+│   ├── index.php           # منصة متابعة الطلبات والتحصيل المالي
+│   └── reports.php         # كشوفات الوردية والتقفيل اليومي للكاشير
+├── config/                 # إعدادات النظام والاتصال
+│   ├── db.php              # ملف الاتصال بقاعدة البيانات وحماية البيانات
+│   ├── db.example.php      # قالب إعدادات الاتصال للتطوير المحلي
+│   └── db.local.php        # ملف الإعدادات المحلية (مستثنى من Git)
+├── database/               # ملفات هيكل قاعدة البيانات
+│   ├── schema.sql          # المخطط الشامل والبيانات الأولية للنظام
+│   └── restaurant_pos.sql  # المخطط الأساسي المرجعي
+├── docs/                   # التوثيق والشعارات
+│   └── assets/saba-logo.png# الشعار الرسمي المعتمد لفندق سبأ
+├── images/                 # صور النظام والهوية
+├── js/                     # السكربتات المتقدمة
+│   └── native-bridge.js    # جسر الطباعة المحمولة للأندرويد والبلوتوث
+├── station/                # شاشات محطات التحضير (المطبخ / العصائر)
+│   ├── _layout.php         # هيكل المحطة والتنبيهات الصوتية
+│   └── index.php           # لوحة عرض الطلبات الجارية وتغيير حالتها
+├── uploads/                # مجلد رفع صور الوجبات والأصناف
+├── waiter/                 # بوابة الويتر لخدمة الصالة
+│   ├── _layout.php         # هيكل واجهة الويتر للهواتف والأجهزة اللوحية
+│   ├── index.php           # خريطة الطاولات وإنشاء الطلبات
+│   ├── inventory_requests.php # رفع طلبات صرف بضاعة للمخزن
+│   └── orders.php          # شاشة متابعة الطلبات الجارية وإضافة أصناف
+├── local_print_worker.php  # مشغل سحب وطباعة الفواتير على ويندوز محلياً
+├── queue_worker.php        # عامل معالجة طابور الطباعة التلقائي (CLI)
+├── print_receipt.php       # قالب الفاتورة الحرارية ثنائي اللغة
+├── start_print_service.bat # مشغل خدمة الطباعة عبر موجه الأوامر (CMD)
+├── start_print_service.ps1 # مشغل خدمة الطباعة عبر PowerShell
+└── index.php               # نقطة الدخول الرئيسية وتوجيه المستخدمين حسب الدور
 ```
 
 ---
 
-## Roles & Permissions
+## أدوار وصلاحيات المستخدمين (Roles & Permissions)
 
-### Confirmed System Roles
+يتضمن النظام **10 أدوار مستخدمين مؤكدة** مع مسار عمل مستقل لكل دور:
 
-| Role | Identifier | Portal / Default Route | Primary Responsibilities |
+| الدور الوظيفي | المعرف في النظام | البوابة / المسار الافتراضي | المهام والمسؤوليات الرئيسية |
 | :--- | :--- | :--- | :--- |
-| **System Administrator** | `admin` | `admin/` | Complete operational control, menu management, printer setup, system settings, and user administration. |
-| **Waiter / Server** | `waiter` | `waiter/` | Dining floor table service, order entry, item additions, and order delivery confirmation. |
-| **Cashier** | `cashier` | `cashier/` | Order verification, invoice settlement, payment collection, receipt printing, and shift reconciliation. |
-| **Head Chef / Kitchen** | `chef` / `kitchen` | `station/` | Food preparation queue, preparation time updates, item completion signaling. |
-| **Juice Bar Operator** | `juice_bar` | `station/` | Cold beverage and juice preparation queue. |
-| **Financial Accountant** | `accountant` | `admin/reports.php` | Auditing sales, ledger reports, and daily cashier settlements. |
-| **Warehouse Manager** | `warehouse_manager` | `admin/inventory.php` | Managing raw material stocks, approving requisitions, and receiving purchases. |
-| **Inventory Monitor** | `inventory_monitor` | `admin/inventory.php` | Reviewing stock thresholds, usage logs, and inventory reports. |
-| **Request Coordinator** | `request_coordinator` | `admin/inventory_requests.php` | Routing internal department stock requisitions. |
-| **Hotel Receptionist** | `receptionist` | `admin/room_sales_view.php` | Auditing dining room sales billed to hotel guest room portfolios. |
+| **مدير النظام** | `admin` | `admin/` | صلاحيات كاملة لإدارة المنيو، والطابعات، والإعدادات، وحسابات المستخدمين، وسجلات النشاط. |
+| **ويتر / مباشر** | `waiter` | `waiter/` | خدمة الصالة، فتح الطلبات على الطاولات، إضافة أصناف، وتأكيد تسليم الوجبات للزبائن. |
+| **كاشير** | `cashier` | `cashier/` | تدقيق الحسابات، تحصيل المدفوعات بكافة الطرق، معالجة المرتجعات، وإغلاق الصندوق اليومي. |
+| **شيف / مطبخ** | `chef` أو `kitchen` | `station/` | متابعة وجبات المطبخ الساخن، تحديث مراحل التحضير، وتسجيل الجاهزية. |
+| **مسؤول العصائر** | `juice_bar` | `station/` | متابعة وتجهيز طلبات قسم العصائر والمشروبات الباردة. |
+| **محاسب مالي** | `accountant` | `admin/reports.php` | تدقيق الإيرادات والتقارير المالية، ومطابقة تسويات الكواشير وصناديق الفندق. |
+| **أمين المستودع** | `warehouse_manager` | `admin/inventory.php` | جرد المخزون، تسجيل فواتير المشتريات، وصرف طلبيات الأقسام المعتمدة. |
+| **مراقب المخزون** | `inventory_monitor` | `admin/inventory.php` | مراقبة حركة المواد الخام، وتدقيق معدلات الاستهلاك والحدود الدنيا. |
+| **منسق الطلبات** | `request_coordinator` | `admin/inventory_requests.php` | استلام وتدقيق وتوجيه طلبات الصرف الداخلي الصادرة من الصالة والمطابخ. |
+| **موظف الاستقبال** | `receptionist` | `admin/room_sales_view.php` | استعراض ومراجعة مبيعات المطعم المحملة على غرف نزلاء الفندق ومطابقتها. |
 
-### Granular Permission Keys
-Administrators can assign fine-grained permission flags to any user account:
-- **Menu Management**: `categories`, `items`
-- **Transactions & Orders**: `orders`, `wallets`, `offers`, `cancel_pending_orders`, `bypass_closed_shift`
-- **Financial Management**: `reports`, `financial_revenues`, `finance.daily_reports.view`
-- **Inventory Management**: `ingredients`, `warehouses`, `inventory`, `inventory_report`, `sales_stats`, `inventory_requests_manage`, `inventory_requests_create`, `stock_management`, `stock_view`
-- **Ticketing & Events**: `ticket_types`, `ticket_sales`
-- **System Administration**: `printers`, `departments`, `settings`, `direct_staff`, `users`, `activity_log`, `item_times`
+### الصلاحيات المخصصة (Custom Permissions)
+بالإضافة للأدوار الأساسية، يوفر النظام إمكانية تخصيص صلاحيات استثنائية لأي مستخدم عبر مصفوفة صلاحيات دقيقة تشمل:
+- `orders` (إدارة الطلبات)، `cancel_pending_orders` (إلغاء الطلبات المعلقة)، `bypass_closed_shift` (تجاوز قفل الشفت المغلق).
+- `finance.daily_reports.view` (التحكم بظهور كشف التقفيل اليومي للكواشير)، `financial_revenues` (استعراض الإيرادات).
+- `stock_management` (تعديل أرصدة الأصناف)، `inventory_requests_manage` (اعتماد طلبات الصرف).
 
 ---
 
-## Database
+## قاعدة البيانات (Database)
 
-The database consists of 36 relational tables categorized by operational domain:
+تعتمد المنظومة على قاعدة بيانات علائقية متماسكة تتألف من **36 جدولاً** موزعة حسب الوظيفة:
+- **المبيعات والطلبات**: `orders`, `order_items`, `offers`, `offer_items`, `discounts`
+- **المنيو والأقسام**: `categories`, `items`, `departments`, `printers`
+- **المخزون والتوريد**: `inv_items`, `inv_purchases`, `inv_requests`, `inv_request_items`, `inv_warehouses`, `inv_sub_stock`, `ingredients`, `item_ingredients`, `item_stock`, `item_stock_log`, `item_audit_log`
+- **الطباعة والاتصال اللحظي**: `print_queue`, `print_logs`, `sse_events`
+- **المستخدمين والرقابة**: `users`, `roles`, `user_category_permissions`, `activity_log`, `settings`, `daily_settlements`, `wallets`, `ticket_sales`, `ticket_types`
 
-* **Core POS & Menu**: `categories`, `items`, `orders`, `order_items`, `offers`, `offer_items`, `discounts`
-* **Printing Pipeline**: `printers`, `departments`, `print_queue`, `print_logs`
-* **Inventory & Warehousing**: `inv_items`, `inv_purchases`, `inv_requests`, `inv_request_items`, `inv_warehouses`, `inv_sub_stock`, `ingredients`, `item_ingredients`, `item_stock`, `item_stock_log`, `item_audit_log`, `inventory_departments`, `inventory_transactions`
-* **Operations & Ticketing**: `daily_settlements`, `direct_staff`, `manual_sales`, `ticket_types`, `ticket_sales`, `wallets`
-* **User Accounts & Audit**: `users`, `roles`, `user_category_permissions`, `activity_log`, `settings`, `messages`, `sse_events`
-
-### Database Setup
-A sanitized, self-contained schema is available in [database/schema.sql](database/schema.sql). It contains the complete schema structure, foreign key relationships, indexes, and safe default seed data (roles, default admin user, and initial system settings).
+### تهيئة قاعدة البيانات
+تم تجهيز ملف تهيئة موحد ونظيف [database/schema.sql](database/schema.sql) يحتوي على كافة الجداول، والقيود، والمفاتيح، مع بيانات التشغيل الأولية الآمنة (الأدوار، المستخدم الافتراضي، الإعدادات الأساسية) **دون أي بيانات حقيقية أو حساسة**.
 
 ---
 
-## API
+## واجهة برمجة التطبيقات (API Reference)
 
-The application exposes structured JSON endpoints consumed by the front-of-house interfaces, background services, and real-time listeners:
+يعتمد النظام على واجهات JSON RESTful تدعم التفاعل اللحظي:
 
-| Endpoint | Method | Purpose |
+| نقطة النهاية (Endpoint) | الطريقة | الاستخدام والغرض |
 | :--- | :--- | :--- |
-| `/api/auth.php?action=login` | `POST` | Authenticate staff and establish session |
-| `/api/orders.php?action=create` | `POST` | Create a new table or takeaway order |
-| `/api/orders.php?action=append_items` | `POST` | Append additional items to an active order |
-| `/api/orders.php?action=pay` | `POST` | Settle an order via Cash, Card, Room, or Wallet |
-| `/api/orders.php?action=refund` | `POST` | Process partial or full refund adjustments |
-| `/api/sse.php` | `GET` | Open SSE stream for real-time order/item events |
-| `/api/print_engine.php` | `POST` | Route and dispatch items to department printers |
-| `/api/print_queue.php?action=claim` | `POST` | Atomically claim next pending print job |
-| `/api/print_queue.php?action=mark_done` | `POST` | Mark claimed print job as printed |
-| `/api/activity.php?action=get_logs` | `GET` | Query audit trail with multi-criteria filters |
-| `/api/app_diagnostic.php` | `GET` | Health check and print worker connectivity diagnostic |
+| `/api/auth.php?action=login` | `POST` | تسجيل دخول المستخدم والتحقق من الجلسة والصلاحيات |
+| `/api/orders.php?action=create` | `POST` | إنشاء طلب جديد (طاولة / سفري / غرفة) وتوزيع أصنافه |
+| `/api/orders.php?action=append_items` | `POST` | إضافة أصناف جديدة على طلب مفتوح دون تكرار الأصناف القديمة |
+| `/api/orders.php?action=pay` | `POST` | تحصيل وسداد قيمة الطلب (نقداً / شبكة / غرفة / محفظة) |
+| `/api/orders.php?action=refund` | `POST` | تنفيذ عمليات المرتجعات المالية الجزئية أو الكلية |
+| `/api/sse.php` | `GET` | فتح قناة بث الأحداث اللحظية المباشرة لشاشات المحطات والكاشير |
+| `/api/print_engine.php` | `POST` | فحص الطلب وتجزئة محتوياته وتوليد أوامر الطباعة للأقسام |
+| `/api/print_queue.php?action=claim` | `POST` | سحب أمر الطباعة التالي ذرياً من الطابور لمنع التكرار |
+| `/api/print_queue.php?action=mark_done` | `POST` | تأكيد إتمام طباعة الأمر وتحديث عدد مرات الطباعة |
+| `/api/activity.php?action=get_logs` | `GET` | استعلام سجل المراقبة والمتابعة وفق فلاتر البحث المخصصة |
+| `/api/app_diagnostic.php` | `GET` | فحص جاهزية الخادم وحالة مفاتيح مشغل الطباعة الحرارية |
 
 ---
 
-## Installation
+## التثبيت والتشغيل المحلي (Installation & Setup)
 
-### Prerequisites
-- **Web Server**: Apache (XAMPP for Windows or Apache2 on Linux)
-- **PHP**: PHP 8.0 or higher with `pdo_mysql`, `curl`, and `mbstring` extensions
-- **Database**: MySQL 5.7+ or MariaDB 10.4+
+### المتطلبات الأساسية
+- خادم محلي مثل **XAMPP** (أو Apache2 + PHP 8.x على Linux).
+- ميزات PHP المفعلة: `pdo_mysql`, `curl`, `mbstring`.
+- خادم قواعد بيانات **MySQL 5.7+** أو **MariaDB 10.4+**.
 
-### Step 1: Clone Repository
-```bash
-git clone https://github.com/adnanalqham/restaurant.git
-cd restaurant
-```
+### خطوات التثبيت:
 
-### Step 2: Initialize Database
-1. Create a fresh database:
-   ```sql
-   CREATE DATABASE `restaurant_pos` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   ```
-2. Import the schema file:
+1. **استنساخ المستودع (Clone)**:
    ```bash
-   mysql -u root -p restaurant_pos < database/schema.sql
+   git clone https://github.com/adnanalqham/restaurant.git
+   cd restaurant
    ```
 
-### Step 3: Configure Database Connection
-By default, the application connects to local XAMPP (`127.0.0.1`, user `root`, no password).
+2. **إنشاء قاعدة البيانات**:
+   - افتح أداة إدارة قواعد البيانات (مثل phpMyAdmin أو موجه MySQL).
+   - أنشئ قاعدة بيانات جديدة باسم `restaurant_pos` وترميز `utf8mb4_unicode_ci`:
+     ```sql
+     CREATE DATABASE `restaurant_pos` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+     ```
+   - استورد المخطط المرفق:
+     ```bash
+     mysql -u root -p restaurant_pos < database/schema.sql
+     ```
 
-To customize your connection, create `config/db.local.php` (this file is ignored by Git):
-```php
-<?php
-define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'your_database_user');
-define('DB_PASS', 'your_database_password');
-define('DB_NAME', 'restaurant_pos');
-```
-Alternatively, configure server environment variables (`DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`).
+3. **ضبط إعدادات الاتصال**:
+   - يتصل النظام تلقائياً ببيئة XAMPP الافتراضية (`127.0.0.1`، اسم المستخدم `root`، بدون كلمة مرور).
+   - لتعديل الإعدادات محلياً، أنشئ ملف `config/db.local.php` (وهو مستثنى تلقائياً من Git):
+     ```php
+     <?php
+     define('DB_HOST', '127.0.0.1');
+     define('DB_USER', 'اسم_المستخدم');
+     define('DB_PASS', 'كلمة_المرور');
+     define('DB_NAME', 'restaurant_pos');
+     ```
 
-### Step 4: Launch Web Server
-Ensure the project is served via Apache (e.g., placed inside `C:\xampp\htdocs\restaurant` or configured via a VirtualHost).
+4. **تشغيل واستخدام النظام**:
+   - تأكد من تشغيل Apache و MySQL في لوحة تحكم XAMPP.
+   - افتح المتصفح على العنوان:
+     ```text
+     http://localhost/restaurant/
+     ```
 
-Access the application in your browser:
-```text
-http://localhost/restaurant/
-```
+#### بيانات الحساب الافتراضي للمدير:
+- **اسم المستخدم**: `admin`
+- **كلمة المرور**: `password`
 
-#### Default Credentials:
-- **Username**: `admin`
-- **Password**: `password`
-
-*(Change the default administrative password immediately after first login via Profile Settings).*
+*(يُنصح بتغيير كلمة المرور فور أول تسجيل دخول من شاشة إعدادات الحساب).*
 
 ---
 
-## Environment Variables
+## إعدادات البيئة (Environment Variables)
 
-The application reads optional environment variables when `config/db.local.php` is omitted:
+يدعم النظام قراءة إعدادات الاتصال عبر متغيرات البيئة تلقائياً:
 
-| Variable | Default Value | Description |
+| المتغير | القيمة الافتراضية | الوصف |
 | :--- | :--- | :--- |
-| `DB_HOST` | `127.0.0.1` | Database server host or IP |
-| `DB_USER` | `root` | Database user account |
-| `DB_PASS` | `(empty)` | Database user password |
-| `DB_NAME` | `restaurant_pos` | Target database name |
-| `PRINT_API_URL` | `http://localhost/restaurant/` | Target URL used by `local_print_worker.php` |
-| `PRINT_API_TOKEN` | `SHEBA_APP_2026` | Shared authentication token for print queue polling |
+| `DB_HOST` | `127.0.0.1` | عنوان خادم قاعدة البيانات |
+| `DB_USER` | `root` | مستخدم قاعدة البيانات |
+| `DB_PASS` | `(فارغ)` | كلمة مرور قاعدة البيانات |
+| `DB_NAME` | `restaurant_pos` | اسم قاعدة البيانات |
+| `PRINT_API_URL` | `http://localhost/restaurant/` | مسار السيرفر المستهدف لمشغل الطباعة المحلي |
+| `PRINT_API_TOKEN` | `SHEBA_APP_2026` | رمز التحقق لسحب أوامر الطباعة من الطابور |
 
 ---
 
-## Development
+## تشغيل عمال الطباعة (Print Workers)
 
-### Background Print Service Setup
-For stations requiring USB thermal receipt printing via the Windows Print Spooler:
-1. Ensure the printer driver is installed in Windows (e.g. named `POS-Kitchen` or `POS-Cashier`).
-2. Run the persistent launcher:
-   - Double-click `start_print_service.bat` or execute `start_print_service.ps1`.
-3. To run the CLI queue worker continuously:
+للبيئات التي تعتمد على طابعات حرارية موصولة بأجهزة ويندوز عبر USB:
+1. تأكد من تثبيت تعريف الطابعة داخل ويندوز وتسميتها باسم محدد (مثل `POS-Kitchen` أو `POS-Cashier`).
+2. شغّل المشغل التلقائي عبر النقر المزدوج على ملف:
+   - `start_print_service.bat` أو عبر سكريبت PowerShell `start_print_service.ps1`.
+3. لتشغيل معالج الطابور عبر سطر الأوامر باستمرار:
    ```bash
    php queue_worker.php --daemon
    ```
 
-### Testing Diagnostics
-Verify printer engine connectivity and auth headers by opening:
-```text
-http://localhost/restaurant/diagnostics.php
-```
+---
+
+## الأمان وحماية البيانات (Security)
+
+- **عزل بيانات الاعتماد**: تم تفريغ كلمات المرور الحساسة للمخدمات السحابية وإسنادها لملف `config/db.local.php` المحمي بملف `.gitignore`.
+- **منع التلاعب بالشفتات المغلقة**: إغلاق إمكانية تعديل أو إلغاء فواتير الشفتات المنتهية إلا بموافقة إدارية تسجل بالاسم والتاريخ في سجل النشاط.
+- **الحماية من حقن الاستعلامات (SQL Injection)**: استخدام Prepared Statements عبر PDO في كافة العمليات البرمجية بدون استثناء.
+- **التحقق المشدد من الجلسات**: حماية الجلسات وتحديد نطاق مسارها ونظام تدقيق الأدوار في كل ملف.
+- **سجل رقابة شامل (Activity Log)**: تدوين كافة العمليات المؤثرة على النظام ومتابعتها دورياً.
 
 ---
 
-## Screenshots / Demo
+## خطة التطوير المستقبلية (Roadmap)
 
-| Module | Description |
-| :--- | :--- |
-| **Admin Dashboard** | Real-time overview of daily sales, total orders, active staff, and top-selling items. |
-| **Cashier Terminal** | Split-screen order processing with quick payment selection, line discounts, and thermal printing. |
-| **Waiter Floor View** | Mobile-responsive table grid with instant order creation and extra item add-on workflows. |
-| **Kitchen Monitor** | Real-time preparation queue filtered by assigned station categories with audio alerts. |
-
----
-
-## Documentation
-
-- **Database Reference**: See [database/schema.sql](database/schema.sql) for table definitions, indices, and foreign key constraints.
-- **Hardware Printing Guide**: See [local_print_worker.php](local_print_worker.php) and [api/print_engine.php](api/print_engine.php) for department routing rules and ESC/POS byte formats.
-- **Mobile Integration**: See [js/native-bridge.js](js/native-bridge.js) for Android WebView bridge implementation.
+- [x] ربط الطابعات الحرارية الشبكية والمحلية بتوجيه تلقائي للأقسام.
+- [x] آلية قفل الشفتات والتحقق الأمني من العمليات السابقة.
+- [x] محرك البحث والفلترة المخصص في سجل المراقبة والمتابعة.
+- [x] رسم بياني تحليلي لأوقات تحضير وجبات المطبخ.
+- [ ] دعم تطبيق الويب التقدمي (PWA) للعمل بدون إنترنت مؤقتاً لأجهزة الويترز.
+- [ ] طلبات النزلاء الذاتية عبر مسح الباركود (QR Code Ordering).
+- [ ] ربط مباشر عبر API مع نظام إدارة الفندق (PMS) الخاص بتسكين الغرف.
 
 ---
 
-## Security
+## الترخيص والحقوق (License)
 
-- **Credential Isolation**: Production database passwords and server details are excluded from Git via `config/db.local.php` and `.gitignore`.
-- **Shift Locking**: Completed shift records are locked against retrospective tampering; overrides require manager permissions and generate audit logs.
-- **Prepared Statements**: All database operations use PDO prepared statements with parameter binding to prevent SQL injection.
-- **Session Protection**: Strict session cookies scoped to application base paths with role-based validation on every route.
-- **Audit Logging**: Sensitive operations (order deletions, shift unlocks, price adjustments) are recorded in the `activity_log` table with client user and timestamp.
+برمجية خاصة ومحمية الحقوق تم تطويرها خصيصاً لصالح **فندق سبأ (Hotel Saba)**. جميع الحقوق محفوظة ©.
 
 ---
 
-## Roadmap
-
-- [x] Multi-department thermal printing with network and USB spooling support.
-- [x] Closed shift locking and audit bypass workflow.
-- [x] Search and filtering in the activity audit log.
-- [x] Visual preparation time distribution charts.
-- [ ] Progressive Web App (PWA) offline service caching for waiter tablets.
-- [ ] QR code digital menu and table ordering for hotel guests.
-- [ ] Direct PMS (Property Management System) API integration for room charges.
-
----
-
-## License
-
-Proprietary software developed for **Hotel Saba**. All rights reserved.
-
----
-
-## Credits / Footer
-
-Developed and maintained for **Hotel Saba** by [adnanalqham](https://github.com/adnanalqham).
+<div align="center">
+  <sub>تم التطوير والإعداد بواسطة <a href="https://github.com/adnanalqham">عدنان القحم (adnanalqham)</a></sub>
+</div>
