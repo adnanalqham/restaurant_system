@@ -1,0 +1,49 @@
+# ============================================
+# Hotel Saba Restaurant Management System
+# Git Ignore Rules
+# ============================================
+
+# Environment & Local Configuration
+.env
+.env.*
+config/db.local.php
+
+# Logs & Temporary Files
+*.log
+logs/
+cache/
+tmp/
+temp/
+scratch/
+
+# Database Backups & Dumps
+*.sql
+*.sql.gz
+*.bak
+*.dump
+!database/schema.sql
+!database/restaurant_pos.sql
+
+# User Uploads (Preserve directory structure via .gitkeep)
+uploads/*
+!uploads/.gitkeep
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Node / Frontend Artifacts (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Composer Artifacts (if any)
+/vendor/
