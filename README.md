@@ -10,11 +10,11 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-8.x-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.x">
-  <img src="https://img.shields.io/badge/قاعدة_البيانات-MySQL_%7C_MariaDB-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
-  <img src="https://img.shields.io/badge/الواجهة-Vanilla_JS_%7C_CSS3-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/التحديث_اللحظي-Server--Sent_Events_(SSE)-FF6C37?style=flat-square" alt="SSE">
-  <img src="https://img.shields.io/badge/الطباعة-ESC%2FPOS_%7C_TCP_%7C_Spooler-2C3E50?style=flat-square" alt="ESC/POS Printing">
-  <img src="https://img.shields.io/badge/الحالة-جاهز_للتشغيل_الإنتاجي-2ECC71?style=flat-square" alt="Production Ready">
+  <img src="https://img.shields.io/badge/Database-MySQL%20%7C%20MariaDB-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL | MariaDB">
+  <img src="https://img.shields.io/badge/Frontend-Vanilla%20JS%20%7C%20CSS3-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="Vanilla JS | CSS3">
+  <img src="https://img.shields.io/badge/RealTime-Server--Sent%20Events%20(SSE)-FF6C37?style=flat-square" alt="Server-Sent Events (SSE)">
+  <img src="https://img.shields.io/badge/Printing-ESC%2FPOS%20%7C%20TCP%20%7C%20Spooler-2C3E50?style=flat-square" alt="ESC/POS | TCP | Spooler">
+  <img src="https://img.shields.io/badge/Status-Production%20Ready-2ECC71?style=flat-square" alt="Production Ready">
 </p>
 
 ---
