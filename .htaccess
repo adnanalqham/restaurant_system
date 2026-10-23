@@ -1,5 +1,52 @@
-# Restaurant POS - Performance Optimization
-# Enable Gzip Compression
+# ============================================
+# Hotel Saba Restaurant POS - Web Server Rules
+# ============================================
+
+# Prevent Directory Listing
+Options -Indexes
+
+# --------------------------------------------
+# 1. Block Sensitive Maintenance, Diagnostic & Migration Scripts
+# --------------------------------------------
+<FilesMatch "^(fix_hostinger_db|add_permissions|add_print_count|db_add_user_en|debug_station|list_tables|migrate_direct_staff|migrate_print_queue|schema|setup_inventory_db|test_apis|update_db|update_prep_times_db|_test)\.php$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# --------------------------------------------
+# 2. Block Direct Access to Database Dumps, Env & Log Files
+# --------------------------------------------
+<FilesMatch "\.(sql|sql\.gz|bak|dump|log|env|env\..*)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# --------------------------------------------
+# 3. Block Hidden System Files & Directories (e.g. .git)
+# --------------------------------------------
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# --------------------------------------------
+# 4. Gzip Compression for Performance
+# --------------------------------------------
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/html
@@ -13,19 +60,19 @@
   AddOutputFilterByType DEFLATE application/json
 </IfModule>
 
-# Browser Caching for Assets
+# --------------------------------------------
+# 5. Browser Caching for Static Assets
+# --------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/jpg "access plus 1 month"
   ExpiresByType image/jpeg "access plus 1 month"
   ExpiresByType image/gif "access plus 1 month"
   ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
   ExpiresByType text/css "access plus 1 week"
   ExpiresByType application/pdf "access plus 1 month"
   ExpiresByType text/javascript "access plus 1 week"
   ExpiresByType application/x-javascript "access plus 1 week"
   ExpiresByType image/x-icon "access plus 1 year"
 </IfModule>
-
-# Prevent Directory Listing
-Options -Indexes

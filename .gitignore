@@ -27,6 +27,7 @@ scratch/
 # User Uploads (Preserve directory structure via .gitkeep)
 uploads/*
 !uploads/.gitkeep
+!uploads/.htaccess
 
 # IDE & Editor Settings
 .vscode/

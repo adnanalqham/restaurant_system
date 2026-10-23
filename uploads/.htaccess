@@ -1,0 +1,26 @@
+# ============================================
+# Hotel Saba Restaurant POS - Uploads Protection
+# ============================================
+Options -Indexes -ExecCGI
+
+# Deny direct execution of scripts
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|cgi|pl|py|sh|bash)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Allow only standard safe image formats
+<FilesMatch "^(?!.*\.(jpg|jpeg|png|gif|webp|svg|ico)$)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
