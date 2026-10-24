@@ -11,6 +11,8 @@ if ($method === 'GET' && isset($_GET['role'])) {
     requireAuth(['admin']); // strictly admin for CRUD operations on users
 }
 
+ensureUsersSchema();
+
 switch ($method) {
     case 'GET':
         $action === 'permissions' ? getUserPermissions() : getUsers();
@@ -31,10 +33,10 @@ switch ($method) {
         jsonResponse(false, null, 'Method not allowed', 405);
 }
 
-function getUsers() {
+function ensureUsersSchema() {
     $db = getDB();
 
-    // --- AUTO MIGRATION ---
+    // --- AUTO MIGRATION: warehouse_id ---
     try {
         $db->query("SELECT warehouse_id FROM users LIMIT 1");
     } catch (PDOException $e) {
@@ -63,7 +65,23 @@ function getUsers() {
     try {
         $db->exec("ALTER TABLE users MODIFY COLUMN print_type ENUM('network','bluetooth','chef') NOT NULL DEFAULT 'network'");
     } catch (PDOException $e) {}
-    // -----------------------
+
+    // --- AUTO MIGRATION: cashier_view_mode columns ---
+    try {
+        $db->query("SELECT cashier_view_mode FROM users LIMIT 1");
+    } catch (PDOException $e) {
+        try {
+            $db->exec("ALTER TABLE users 
+                ADD COLUMN cashier_view_mode VARCHAR(20) NOT NULL DEFAULT 'all',
+                ADD COLUMN cashier_limit_value INT DEFAULT 100,
+                ADD COLUMN cashier_date_from DATE DEFAULT NULL,
+                ADD COLUMN cashier_date_to DATE DEFAULT NULL");
+        } catch (PDOException $e2) {}
+    }
+}
+
+function getUsers() {
+    $db = getDB();
 
     $roleFilter = $_GET['role'] ?? '';
     $activeFilter = isset($_GET['active']) ? (int)$_GET['active'] : null;
