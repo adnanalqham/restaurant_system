@@ -48,7 +48,7 @@ function getDailyReport() {
 
     // Attach items
     foreach ($orders as &$order) {
-        $iStmt = $db->prepare("SELECT item_name_ar, quantity, unit_price, subtotal, status FROM order_items WHERE order_id=? AND is_confirmed=1 ORDER BY id ASC");
+        $iStmt = $db->prepare("SELECT item_name_ar, quantity, unit_price, subtotal, status FROM order_items WHERE order_id=? AND (status != 'rejected' OR status IS NULL) ORDER BY id ASC");
         $iStmt->execute([$order['id']]);
         $order['items'] = $iStmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -79,7 +79,7 @@ function getDailyReport() {
             (SELECT IFNULL(SUM(oi.quantity), 0) 
              FROM order_items oi 
              JOIN orders o2 ON oi.order_id = o2.id 
-             WHERE DATE(o2.created_at) = ? AND o2.paid_at IS NOT NULL AND o2.status != 'refunded' AND oi.is_confirmed = 1 $statCashierInner) as total_pieces
+             WHERE DATE(o2.created_at) = ? AND o2.paid_at IS NOT NULL AND o2.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL) $statCashierInner) as total_pieces
         FROM orders WHERE DATE(created_at) = ? $statCashierWhere
     ");
     $statStmt->execute($statParams);
@@ -95,7 +95,7 @@ function getDailyReport() {
         JOIN orders o ON oi.order_id = o.id
         JOIN categories c ON oi.category_id = c.id
         LEFT JOIN items i ON i.id = oi.item_id
-        WHERE DATE(o.created_at) = ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND oi.is_confirmed = 1 $itemCashierWhere
+        WHERE DATE(o.created_at) = ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL) $itemCashierWhere
         GROUP BY oi.item_id, oi.item_name_ar, i.item_number, c.icon
         ORDER BY total_qty DESC
     ");
@@ -108,7 +108,7 @@ function getDailyReport() {
         FROM order_items oi
         JOIN orders o ON oi.order_id = o.id
         JOIN users u ON o.cashier_id = u.id
-        WHERE DATE(o.created_at) = ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND oi.status != 'rejected' AND oi.is_confirmed = 1
+        WHERE DATE(o.created_at) = ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL)
         GROUP BY oi.item_id, oi.item_name_ar, u.id, u.name
     ");
     $cashierSalesStmt->execute([$date]);
@@ -167,7 +167,7 @@ function getRangeReport() {
     $totalRefunds = (float)$refundStmt->fetchColumn();
 
     // Total pieces sold for the range
-    $piecesStmt = $db->prepare("SELECT IFNULL(SUM(oi.quantity),0) as total FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.paid_at IS NOT NULL AND o.status != 'refunded' AND oi.is_confirmed = 1 AND DATE(o.created_at) BETWEEN ? AND ?");
+    $piecesStmt = $db->prepare("SELECT IFNULL(SUM(oi.quantity),0) as total FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.paid_at IS NOT NULL AND o.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL) AND DATE(o.created_at) BETWEEN ? AND ?");
     $piecesStmt->execute([$from, $to]);
     $totalPieces = (int)$piecesStmt->fetchColumn();
 
@@ -177,7 +177,7 @@ function getRangeReport() {
         FROM order_items oi
         JOIN orders o ON oi.order_id = o.id
         JOIN users u ON o.cashier_id = u.id
-        WHERE DATE(o.created_at) BETWEEN ? AND ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND oi.status != 'rejected' AND oi.is_confirmed = 1
+        WHERE DATE(o.created_at) BETWEEN ? AND ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL)
         GROUP BY oi.item_id, oi.item_name_ar, u.id, u.name
     ");
     $cashierSalesStmt->execute([$from, $to]);
@@ -195,7 +195,7 @@ function getRangeReport() {
         JOIN orders o ON oi.order_id = o.id
         JOIN categories c ON oi.category_id = c.id
         LEFT JOIN items i ON i.id = oi.item_id
-        WHERE DATE(o.created_at) BETWEEN ? AND ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND oi.is_confirmed = 1
+        WHERE DATE(o.created_at) BETWEEN ? AND ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL)
         GROUP BY oi.item_id, oi.item_name_ar, i.item_number, c.icon
         ORDER BY total_qty DESC
     ");
@@ -233,7 +233,7 @@ function getTopItems() {
         FROM order_items oi
         JOIN orders o ON oi.order_id = o.id
         JOIN categories c ON oi.category_id = c.id
-        WHERE DATE(o.created_at) = ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND oi.is_confirmed = 1
+        WHERE DATE(o.created_at) = ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL)
         GROUP BY oi.item_id, oi.item_name_ar, oi.item_name_en, c.name_ar
         ORDER BY total_qty DESC
         LIMIT ?
@@ -247,8 +247,8 @@ function getSummary() {
     $today = date('Y-m-d');
     $month = date('Y-m');
     
-    $from = $_GET['from'] ?? null;
-    $to = $_GET['to'] ?? null;
+    $from = !empty($_GET['from']) ? $_GET['from'] : null;
+    $to = !empty($_GET['to']) ? $_GET['to'] : null;
 
     // Always fetch actual today's revenue
     $todayRevStmt = $db->prepare("SELECT SUM(total - refund_amount) FROM orders WHERE paid_at IS NOT NULL AND status != 'refunded' AND DATE(created_at)=?");
@@ -312,8 +312,8 @@ function getSummary() {
 function getDashboardCharts() {
     $db = getDB();
     
-    $from = $_GET['from'] ?? date('Y-m-d', strtotime('-6 days'));
-    $to = $_GET['to'] ?? date('Y-m-d');
+    $from = !empty($_GET['from']) ? $_GET['from'] : date('Y-m-d', strtotime('-6 days'));
+    $to = !empty($_GET['to']) ? $_GET['to'] : date('Y-m-d');
     
     // 1. Revenue Trend (Dynamic Days)
     $trendData = [];
@@ -388,7 +388,7 @@ function getDashboardCharts() {
         FROM order_items oi
         JOIN orders o ON oi.order_id = o.id
         JOIN categories c ON oi.category_id = c.id
-        WHERE DATE(o.created_at) >= ? AND DATE(o.created_at) <= ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND oi.is_confirmed = 1
+        WHERE DATE(o.created_at) >= ? AND DATE(o.created_at) <= ? AND o.paid_at IS NOT NULL AND o.status != 'refunded' AND (oi.status != 'rejected' OR oi.status IS NULL)
         GROUP BY c.id, c.name_ar
         ORDER BY total_revenue DESC
     ");
